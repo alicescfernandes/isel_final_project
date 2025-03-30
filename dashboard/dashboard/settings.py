@@ -122,3 +122,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom user model
+AUTH_USER_MODEL = 'pages.CustomUser'
+
+# Authentication settings
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development only
+EMAIL_HOST = 'smtp.gmail.com'  # For production
+EMAIL_PORT = 587  # For production
+EMAIL_USE_TLS = True  # For production
+EMAIL_HOST_USER = 'your-email@gmail.com'  # For production
+EMAIL_HOST_PASSWORD = 'your-app-password'  # For production

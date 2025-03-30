@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                Settings
+            </h1>
+            
+            <!-- Change Password Section -->
+            <div class="space-y-4">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Change Password</h2>
+                <form method="post" action="{% url 'password_change' %}" class="space-y-4">
+                    {% csrf_token %}
+                    <div>
+                        <label for="old_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current Password</label>
+                        <input type="password" name="old_password" id="old_password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="new_password1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
+                        <input type="password" name="new_password1" id="new_password1" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                            Your password must contain at least 8 characters, can't be too common, and can't be entirely numeric.
+                        </p>
+                    </div>
+                    <div>
+                        <label for="new_password2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm New Password</label>
+                        <input type="password" name="new_password2" id="new_password2" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    </div>
+                    <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Change Password</button>
+                </form>
+            </div>
+
+            <!-- File Upload Section -->
+            <div class="space-y-4">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Upload Files</h2>
+                <form method="post" enctype="multipart/form-data" class="space-y-4">
+                    {% csrf_token %}
+                    <div>
+                        <label for="quarter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quarter</label>
+                        <select name="quarter" id="quarter" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <option value="">Select a quarter</option>
+                            <option value="Q1">Quarter 1</option>
+                            <option value="Q2">Quarter 2</option>
+                            <option value="Q3">Quarter 3</option>
+                            <option value="Q4">Quarter 4</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="file" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">XLSX File</label>
+                        <input type="file" name="file" id="file" accept=".xlsx" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    </div>
+                    <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Upload File</button>
+                </form>
+            </div>
+
+            <!-- File List Section -->
+            <div class="space-y-4">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Uploaded Files</h2>
+                <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="py-3 px-6">Quarter</th>
+                                <th scope="col" class="py-3 px-6">Filename</th>
+                                <th scope="col" class="py-3 px-6">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for file in files %}
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="py-4 px-6">{{ file.quarter }}</td>
+                                <td class="py-4 px-6">{{ file.filename }}</td>
+                                <td class="py-4 px-6">
+                                    <form method="post" action="{% url 'delete_file' file.id %}" class="inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td colspan="3" class="py-4 px-6 text-center">No files uploaded yet.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

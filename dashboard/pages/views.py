@@ -1,10 +1,17 @@
 import os
 import pandas as pd
 import plotly.express as px
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.urls import reverse_lazy
+from .forms import CustomUserCreationForm
 
 # Create your views here.
 
+@login_required
 def home(request):
     # Get the path to the xlsx directory
     current_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -101,3 +108,45 @@ def home(request):
         return render(request, 'pages/home.html', {'charts': [], 'error': 'No valid XLSX files were processed'})
     
     return render(request, 'pages/home.html', {'charts': charts})
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Account created successfully!')
+            return redirect('home')
+    else:
+        form = CustomUserCreationForm()
+    
+    # Add styling to form fields
+    for field in form.fields.values():
+        field.widget.attrs.update({
+            'class': 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+        })
+    
+    return render(request, 'registration/register.html', {'form': form})
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    redirect_authenticated_user = True
+
+class CustomLogoutView(LogoutView):
+    next_page = 'login'
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'registration/password_reset_form.html'
+    email_template_name = 'registration/password_reset_email.html'
+    subject_template_name = 'registration/password_reset_subject.txt'
+    success_url = reverse_lazy('password_reset_done')
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'registration/password_reset_done.html'
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'registration/password_reset_confirm.html'
+    success_url = reverse_lazy('password_reset_complete')
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'registration/password_reset_complete.html'
