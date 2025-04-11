@@ -117,10 +117,15 @@ class ChartDataAPIView(APIView):
 
         return Response({
             'quarter':get_quarter_navigation_object(quarter_number, slug),
-            "data": {
-                "type": "bar", #TODO: Mapping for slugs to chart types
-                "x": applications,
-                "y": values
+            'chart_config':{
+                "traces":[
+                    {
+                        "type": "bar", #TODO: Mapping for slugs to chart types
+                        "x": applications,
+                        "y": values
+                    }
+                ],
+                "layout":{}
             },
             'title': csv_file.sheet_name,
             "options": available_filters,

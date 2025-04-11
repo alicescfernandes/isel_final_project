@@ -19,5 +19,5 @@ __Newer entries are inserted to the top of the file__
 - [x] Remove "Quarters" from the sheet names
 - [x] Remove "Total" lines
 - [x] Fix the slug on the admin. this needs to match the chart classification type
-
-- File deletion was disabled
+- [x] File deletion was disabled
+- [x] Make the API return Plotly traces, and use those traces

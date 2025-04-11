@@ -45,7 +45,6 @@ class PlotlyChart extends HTMLElement {
     setState(newState) {
         this.state = { ...this.state, ...newState };
         this.render()
-        console.log(this.state)
     }
 
     renderQuarterNavigation() {
@@ -139,7 +138,6 @@ class PlotlyChart extends HTMLElement {
         if (select) {
             select.addEventListener('change', (e) => {
                 const value = e.target.value;
-                console.log(`Dropdown mudou: ${value}`);
                 this.setState({
                     selectedOption: value
                 })
@@ -171,54 +169,13 @@ class PlotlyChart extends HTMLElement {
         }
     }
 
-    normalizeData() {
-        const { data } = this.state
-        const { type, x, y } = data
-
-
-        switch (type) {
-            case 'pie':
-                return [{
-                    type,
-                    labels: x,
-                    values: y,
-                }];
-            case 'bar':
-            case 'line':
-            case 'scatter':
-                return [{
-                    type,
-                    x,
-                    y,
-                    mode: (type === 'scatter' || type === 'line') ? 'lines+markers' : undefined
-                }];
-            default:
-                return [{
-                    type,
-                    x,
-                    y
-                }];
-        }
-    }
-
+    // Chart is fully configured from the backend, using the Plotly API
     async renderChart() {
         if (!this.isConnected || this.state.isLoading) return;
 
-        const { data, title } = this.state
+        const { title, chart_config } = this.state
 
-        const type = data.type
-        let x = [], y = [];
-
-        try {
-            x = JSON.parse(this.getAttribute('x') || '[]');
-            y = JSON.parse(this.getAttribute('y') || '[]');
-        } catch (err) {
-            console.error('Erro ao fazer parse dos atributos x e y:', err);
-            return;
-        }
-
-        const normalizeData = this.normalizeData(type, x, y);
-        const layout = { title: '' };
+        const { traces, layout} = chart_config
 
         const container = this.querySelector(`#${this.id} .chart`);
         const titleEl = this.querySelector(`#${this.id} .chart-title`);
@@ -229,7 +186,7 @@ class PlotlyChart extends HTMLElement {
         }
 
         if (container) {
-            Plotly.newPlot(container, normalizeData, layout, {
+            Plotly.newPlot(container, traces, layout, {
                 responsive: true,
             });
         }
