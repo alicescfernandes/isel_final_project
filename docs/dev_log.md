@@ -8,11 +8,11 @@ __Newer entries are inserted to the top of the file__
 - [ ] Fork the branch for the FEIM presentation and freeze it
 - [ ] Extract remaining tailwind classes into the CSS file
 - [ ] Check if the flowbite JS file can be imported from node_modules
-- [ ] When a graph has an error, don't render the chart but the error message
+- [ ] Add Sections - Exctract the names from the XSLX file. This will require some template changes
 
 ## 04/11/2025
 
-- [x] Add sheet parsing to the endpoints
+- [x] Add sheet parsing to the endpoint
 - [x] Make sure that the endpoints and the duplicated file logic still works
 - [x] Disable edit excel on the admin, only removals and creations - This was fixed
 - [x] Remove "Quarters" from the sheet names
@@ -25,7 +25,8 @@ __Newer entries are inserted to the top of the file__
 - [x] Add support on the backend and frontend to allow for multiple filters (check the dimensions)
 - [x] Show legends on the charts even when its a single trace
 - [x] Only allow for excel files uploads
-- [x] When an error happens, the webcomponent renders a red alert, and when no data is able to be show, an empty state message
+- [x] When no data is able to be show, an empty state message
+- [X] When a graph has an error, don't render the chart but the error message
 
 ### Data filtering problems
 
