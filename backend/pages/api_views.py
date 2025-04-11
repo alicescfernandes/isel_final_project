@@ -139,10 +139,11 @@ class ChartDataAPIView(APIView):
 class ChartDataAPIViewV2(APIView):
     def get(self, request, format=None):
         quarters = Quarter.objects.all()
-        last_quarter = quarters[0]  # Most recent
+        last_quarter = quarters[0]            # mais recente
 
         slug = request.query_params.get('slug')
         quarter_number = request.query_params.get('q', last_quarter.number)
+        filter = request.query_params.get('opt')  # opcional
 
         if not slug:
             return Response(
@@ -172,15 +173,10 @@ class ChartDataAPIViewV2(APIView):
 
         try:
             df = pd.read_csv(csv_file.csv_path)
-
-            
-
-            # Always take the first column as x-axis labels (e.g., application names, brands, etc.)
-            x = df.iloc[:, 0].fillna("").tolist()
-            
-            
-            y = []
+                        
             if(type == "simple"):
+
+                application_col = df.columns[0]
                 filter_cols = df.columns[1:]
 
                 df[filter_cols] = df[filter_cols].apply(pd.to_numeric, errors='coerce')
@@ -188,67 +184,67 @@ class ChartDataAPIViewV2(APIView):
                 available_filters = filter_cols.tolist()
                 selected_filter = filter if filter in available_filters else available_filters[0]
 
-                y = df[selected_filter].fillna(0).tolist()
-            
-                response_data = {
-                    'quarter': get_quarter_navigation_object(quarter_number, slug),
-                    'title': csv_file.sheet_name,
-                    'type': chart_type,
-                    'data': {
-                        'x': x,
-                        'y': y,
+                applications = df[application_col].fillna("").tolist()
+                values = df[selected_filter].fillna(0).tolist()
+                
+                return Response({
+                    'quarter':get_quarter_navigation_object(quarter_number, slug),
+                    'chart_config':{
+                        "traces":[
+                            {
+                                "type": "bar", #TODO: Mapping for slugs to chart types
+                                "x": applications,
+                                "y": values
+                            }
+                        ],
+                        "layout":{}
                     },
+                    'title': csv_file.sheet_name,
                     "options": available_filters,
                     'selected_option': selected_filter
-                }
-
-                return Response(response_data)
+                })
         
             if(type=="double"):
-                filter_cols = df.columns[1:]
+                
+                column_filter_name = chart_meta["column_name"]
+                                
+                available_column_filters = df[column_filter_name].unique()
+                selected_column_filter = filter if filter in available_column_filters else available_column_filters[0]
 
-                available_filters_2 = df['Company'].unique()
-                selected_filter_2 = available_filters_2[0]
-
-                # Filtrar as linhas onde 'Company' == 'SWITCH'
-                filtered_df = df[df['Company'] == 'SWITCH']
+            
+                # Filtrar as linhas onde a coluna 'Company' == 'SWITCH'
+                filtered_df = df[df[column_filter_name] == selected_column_filter]
 
                 # Remover a coluna 'Company'
-                filtered_df = filtered_df.drop(columns=['Company'])
+                filtered_df = filtered_df.drop(columns=[column_filter_name])
 
-                
                 traces = []
+                x = filtered_df.columns[1:].to_list()
                 for _, row in filtered_df.iterrows():
                     trace = {
-                        "x": ["Price", "Rebate"],
-                        "y": [row["Price"], row["Rebate"]],
-                        "name": row["Brand"].strip('.').title(),
+                        "x": x,
+                        "y": [row[col] for col in x],
+                        "name": row[0].strip('.').title(),
                         "type": "bar"
                     }
                     traces.append(trace)
-
-                # Estrutura de resposta da API
-                api_response = {
-                    "data": traces,
-                    "layout": {
-                        "barmode": "group"
-                    }
-                }
-                
-                print(api_response)
-                y = []
             
                 response_data = {
                     'quarter': get_quarter_navigation_object(quarter_number, slug),
                     'title': csv_file.sheet_name,
                     'type': chart_type,
-                    'data': {
-                        'x': x,
-                        'y': y,
+                    'chart_config':{
+                        "traces":traces,
+                        "layout":{
+                            "barmode": "group"
+                        }
                     },
-                    "traces":traces,
-                    "options": available_filters_2,
-                    'selected_option': selected_filter_2
+                    "options": available_column_filters,
+                    'selected_option': selected_column_filter,
+                    'columns_filter':{
+                        'available': available_column_filters,
+                        'selected': selected_column_filter
+                    }
                 }
                 
 
