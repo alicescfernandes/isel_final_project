@@ -8,6 +8,8 @@ __Newer entries are inserted to the top of the file__
 - [ ] Add support on the backend and frontend to allow for multiple filters (check the dimensions)
 - [ ] Ensure that all charts are supported, without any bugs or errors
 - [ ] Fork the branch for the FEIM presentation and freeze it
+- [ ] Extract remaining tailwind classes into the CSS file
+- [ ] Check if the flowbite JS file can be imported from node_modules
 
 ## 04/11/2025
 
