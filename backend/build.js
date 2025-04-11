@@ -46,8 +46,8 @@ async function buildJS() {
   const ctx = await esbuild.context({
     entryPoints,
     outdir: './dashboard/static/js',
-    // bundle: true,
-    // minify: true,
+    bundle: true,
+    minify: true,
     sourcemap: true,
     format: 'iife',
   });

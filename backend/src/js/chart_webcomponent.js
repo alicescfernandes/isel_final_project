@@ -1,5 +1,5 @@
 
-const API_BASE_URL = 'http://localhost:8000/api/v2/'
+const API_BASE_URL = 'http://localhost:8000/api/'
 class PlotlyChart extends HTMLElement {
     constructor() {
         super();

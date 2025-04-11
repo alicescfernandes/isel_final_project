@@ -75,78 +75,6 @@ def get_quarter_navigation_object(quarter_number, slug):
 # http://localhost:8000/api/chart/?slug=customer-needs-and-wants&q=1
 # http://localhost:8000/api/chart/?slug=competitors-prices-apac&q=1
 
-class ChartDataAPIView(APIView):
-    def get(self, request, format=None):
-        quarters = Quarter.objects.all()
-        last_quarter = quarters[0]            # mais recente
-
-        slug = request.query_params.get('slug')
-        quarter_number = request.query_params.get('q', last_quarter.number)
-        filter = request.query_params.get('opt')  # opcional
-
-        if not slug:
-            return Response(
-                {"error": "Both 'slug' query parameters are required."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        
-        curr_q = get_object_or_404(Quarter, number=quarter_number)
-        
-        csv_file = get_object_or_404(
-            CSVFile,
-            sheet_name_slug=slug,
-            quarter_uuid=curr_q.uuid,
-            is_current=True
-        )
-
-        file_path = csv_file.csv_path
-                
-        try:
-            df = pd.read_csv(file_path)
-
-            application_col = df.columns[0]
-            filter_cols = df.columns[1:]
-
-            df[filter_cols] = df[filter_cols].apply(pd.to_numeric, errors='coerce')
-
-            available_filters = filter_cols.tolist()
-            selected_filter = filter if filter in available_filters else available_filters[0]
-
-            applications = df[application_col].fillna("").tolist()
-            values = df[selected_filter].fillna(0).tolist()
-            
-            
-            return Response({
-                'quarter':get_quarter_navigation_object(quarter_number, slug),
-                'chart_config':{
-                    "traces":[
-                        {
-                            "type": "bar", #TODO: Mapping for slugs to chart types
-                            "x": applications,
-                            "y": values
-                        }
-                    ],
-                    "layout":{}
-                },
-                'title': csv_file.sheet_name,
-                "options": available_filters,
-                'selected_option': selected_filter
-            })
-
-        except Exception as e:
-            return Response({
-                'quarter':get_quarter_navigation_object(quarter_number, slug),
-                "error": f"Error reading file: {str(e)}",
-                'chart_config':{
-                    "traces":[],
-                    "layout":{}
-                },
-                'title': csv_file.sheet_name,
-                "options": available_filters,
-                'selected_option': selected_filter
-            })
-        
-        
 def format_chart_trace(x,y, type):
     if(type == "pie"):        
         return {
@@ -161,7 +89,7 @@ def format_chart_trace(x,y, type):
             "y": y
         }
     
-class ChartDataAPIViewV2(APIView):
+class ChartDataAPIView(APIView):
     def get(self, request, format=None):
         quarters = Quarter.objects.all()
         last_quarter = quarters[0]            # mais recente
