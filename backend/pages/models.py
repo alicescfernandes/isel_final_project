@@ -8,7 +8,7 @@ import pandas as pd
 from django.db import models
 from django.conf import settings
 from django.core.files.storage import default_storage
-from .data_processing import run_pipeline_for_sheet
+from .utils.data_processing import run_pipeline_for_sheet
 
 def user_quarter_upload_path(instance, filename):
     instance.file_name = filename

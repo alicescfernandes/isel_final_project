@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 
 from pages.models import Quarter
 from .models import Quarter
-from .chart_classification import CHART_CLASSIFICATION
+from .utils.chart_classification import CHART_CLASSIFICATION
 from .utils.api import  get_quarter_navigation_object, get_request_params, return_empty_response, get_active_csv_for_slug
 from .utils.charts import process_simple_chart, process_double_chart
 class QuarterListAPIView(APIView):
