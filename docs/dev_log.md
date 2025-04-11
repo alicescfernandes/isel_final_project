@@ -4,12 +4,11 @@ __Newer entries are inserted to the top of the file__
 
 ## 05/11/2025
 
-- [ ] Read chart config from the chart classification type, and return that chart type
-- [ ] Add support on the backend and frontend to allow for multiple filters (check the dimensions)
 - [ ] Ensure that all charts are supported, without any bugs or errors
 - [ ] Fork the branch for the FEIM presentation and freeze it
 - [ ] Extract remaining tailwind classes into the CSS file
 - [ ] Check if the flowbite JS file can be imported from node_modules
+- [ ] When a graph has an error, don't render the chart but the error message
 
 ## 04/11/2025
 
@@ -22,6 +21,11 @@ __Newer entries are inserted to the top of the file__
 - [x] File deletion was disabled
 - [x] Make the API return Plotly traces, and use those traces
 - [x] File deletion was disabled
+- [x] Read chart config from the chart classification type, and return that chart type
+- [x] Add support on the backend and frontend to allow for multiple filters (check the dimensions)
+- [x] Show legends on the charts even when its a single trace
+- [x] Only allow for excel files uploads
+- [x] When an error happens, the webcomponent renders a red alert, and when no data is able to be show, an empty state message
 
 ### Data filtering problems
 
