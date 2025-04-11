@@ -1,0 +1,53 @@
+I have a chart classifcation object that classifies specific charts and links it to a type and a dimensions prop. The dimensions prop tells the function the amount of dimensions present on the data, and by dimension, i spefically mean a category or brand or something that can be used as a filter.
+
+CHART_CLASSIFICATION = {
+    "use-pattern": {
+        "type": "bar",
+        "dimensions": 1
+    },
+}
+
+Today, i want your help with the dimensions prop. I need a function that takes the "dimensions" and returns arrays based on the number given.
+
+Take the following CSV example:
+
+Unspecified String item_column_name_11,Costcutter,Innovator,Mercedes,Workhorse,Traveler
+Communications with other computers,112,121,121,120,124
+Presentations,103,109,111,108,131
+Word Processing,125,99,105,126,122
+"Data management-accounts, inventory",109,116,113,119,109
+Engineering/design,73,116,105,75,89
+"Bookkeeping, budgeting",114,100,84,126,101
+Manufacturing process control,69,102,132,88,72
+Technical graphics,70,125,120,72,63
+Computer aided design/manufacturing,38,104,120,64,33
+Business graphics,93,108,102,110,114
+Statistical analysis,59,124,111,90,68
+Web design and management,69,125,88,115,58
+
+The return here would be a single list like (dimension===1):  
+[
+    [Costcutter,Innovator,Mercedes,Workhorse,Traveler]
+]
+
+Now take this second CSV exampl
+
+Brand,Company,Price,Rebate
+MOVE 2.1.,SWITCH,3150,150
+MORPHEUS,SWITCH,2800,100
+Elevatech 3.0,CTTG,3400,0
+Express 3.0,CTTG,3200,200
+TurboLiteV2,CTTG,1800,50
+HAJA Sky ♾️,HAJA Infinity,2959,100
+HAJA Work 2.0,HAJA Infinity,2750,150
+HAJA Future,HAJA Infinity,3275,50
+WorkByte,InnoByte,3200,150
+FutureByte,InnoByte,3700,150
+TravelByte,InnoByte,3525,150
+
+here it would be two lists (dimension === 1)
+[
+    [MOVE 2.1., MORPHEUS, Elevatech (...rest of first column) ],
+    [Switch, CTTG, HAJA Infinity, (...rest of second column) ],
+
+]

@@ -1,172 +1,172 @@
 CHART_CLASSIFICATION = {
     "industry-results-for": {
-        "type": "box quarter",
-        "dimensions": 1
+        "chart_type": "box quarter",
+        "type": "simple",
     },
     "competitors-prices-noram": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "competitors-prices-mea": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "competitors-prices-latam": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "competitors-prices-europe": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "competitors-prices-apac": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "sales-force-noram": {
-        "type": "stacked bar",
-        "dimensions": 2
+        "chart_type": "stacked bar",
+        "type": "double"
     },
     "sales-force-mea": {
-        "type": "stacked bar",
-        "dimensions": 2
+        "chart_type": "stacked bar",
+        "type": "double"
     },
     "sales-force-latam": {
-        "type": "stacked bar",
-        "dimensions": 2
+        "chart_type": "stacked bar",
+        "type": "double"
     },
     "sales-force-europe": {
-        "type": "stacked bar",
-        "dimensions": 2
+        "chart_type": "stacked bar",
+        "type": "double"
     },
     "sales-force-apac": {
-        "type": "stacked bar",
-        "dimensions": 2
+        "chart_type": "stacked bar",
+        "type": "double"
     },
     "web-personnel-noram": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "web-personnel-mea": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "web-personnel-latam": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "web-personnel-europe": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "web-personnel-apac": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "web-traffic-budgets": {
-        "type": "line",
-        "dimensions": 1
+        "chart_type": "line",
+        "type": "simple",
     },
     "commissions-to-web-partners": {
-        "type": "line",
-        "dimensions": 1
+        "chart_type": "line",
+        "type": "simple",
     },
     "web-productivity-budgets": {
-        "type": "line",
-        "dimensions": 1
+        "chart_type": "line",
+        "type": "simple",
     },
     "cost-of-production-estimate": {
-        "type": "bar",
-        "dimensions": 1
+        "chart_type": "bar",
+        "type": "simple",
     },
     "cumulative-results-for-quarter": {
-        "type": "line",
-        "dimensions": 1
+        "chart_type": "line",
+        "type": "simple",
     },
     "customer-needs-and-wants": {
-        "type": "pie",
-        "dimensions": 1
+        "chart_type": "pie",
+        "type": "simple",
     },
     "web-customer-needs-and-wants": {
-        "type": "pie",
-        "dimensions": 1
+        "chart_type": "pie",
+        "type": "simple",
     },
     "market-demand": {
-        "type": "line",
-        "dimensions": 1
+        "chart_type": "line",
+        "type": "simple",
     },
     "market-share": {
-        "type": "stacked bar",
-        "dimensions": 1
+        "chart_type": "stacked bar",
+        "type": "simple",
     },
     "12-month-potential-demand": {
-        "type": "line",
-        "dimensions": 1
+        "chart_type": "line",
+        "type": "simple",
     },
     "price-judgment-noram": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "price-judgment-mea": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "price-judgment-latam": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "price-judgment-europe": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "price-judgment-apac": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "price-willing-to-pay": {
-        "type": "bar",
-        "dimensions": 1
+        "chart_type": "bar",
+        "type": "simple",
     },
     "sales-total": {
-        "type": "line",
-        "dimensions": 1
+        "chart_type": "line",
+        "type": "simple",
     },
     "sales-sales-office-channel": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "sales-web-channel": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "sales-noram": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "sales-latam": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "sales-europe": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "sales-apac": {
-        "type": "bar",
-        "dimensions": 2
+        "chart_type": "bar",
+        "type": "double"
     },
     "sales-unwanted-inventory": {
-        "type": "bar",
-        "dimensions": 1
+        "chart_type": "bar",
+        "type": "simple",
     },
     "segments-by-application": {
-        "type": "bar",
-        "dimensions": 1
+        "chart_type": "bar",
+        "type": "simple",
     }
 }
 
 COLUMNS_TO_REMOVE = [
-    "CTTG",
+    # "CTTG", --> THIS IS A BRAND NAME
     "Priority",
     "Point of Purchase Display",
     "Total Sales People",
