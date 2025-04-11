@@ -6,6 +6,7 @@
 {% block extra_head %}
 <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
 <link rel="stylesheet" href="{% static 'css/page_uploads.css' %}">
 {% endblock %}
 
@@ -117,15 +118,14 @@
                         class="upload-input">
                 </div>
 
-                <!-- Uploader múltiplo -->
                 <div>
                     <label for="edit-quarter-files" class="upload-label">
                         Adicionar Ficheiros (.xlsx)
                     </label>
-                    <!--<input type="file" name="files" id="edit-quarter-files" multiple accept=".xlsx" class="upload-input">-->
-                    <input type="file" name="files" id="filepond" multiple accept=".xlsx" />
+                    <input type="file" name="files" id="filepond" multiple />
 
                 </div>
+
 
                 <div class="flex justify-end">
                     <button type="submit"
@@ -151,10 +151,32 @@
         form.action = `/quarters/edit/${uuid}/`;
     }
 
+    FilePond.registerPlugin(FilePondPluginFileValidateType);
+
     FilePond.create(document.querySelector('#filepond'), {
         allowMultiple: true,
         storeAsFile: true,
-        acceptedFileTypes: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
+        acceptedFileTypes: [
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/vnd.ms-excel'
+        ],
+        fileValidateTypeDetectType: (source, type) =>
+            new Promise((resolve, reject) => {
+                const name = source.name.toLowerCase();
+                console.log('Detected type:', type, '| Name:', source.name);
+                
+                if (name.endsWith('.xls')) {
+                    return resolve('application/vnd.ms-excel');
+                }
+
+                if (name.endsWith('.xlsx')) {
+                    return resolve('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                }
+
+                resolve(type); // fallback to auto-detected
+            }),
+        labelFileTypeNotAllowed: 'Apenas ficheiros Excel (.xls, .xlsx) são permitidos.',
+        fileValidateTypeLabelExpectedTypes: 'Tipos permitidos: {allTypes}'
     });
 </script>
 

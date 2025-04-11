@@ -134,8 +134,33 @@ class ChartDataAPIView(APIView):
             })
 
         except Exception as e:
-            return Response({"error": f"Error reading file: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({
+                'quarter':get_quarter_navigation_object(quarter_number, slug),
+                "error": f"Error reading file: {str(e)}",
+                'chart_config':{
+                    "traces":[],
+                    "layout":{}
+                },
+                'title': csv_file.sheet_name,
+                "options": available_filters,
+                'selected_option': selected_filter
+            })
         
+        
+def format_chart_trace(x,y, type):
+    if(type == "pie"):        
+        return {
+            "values": y,
+            "labels": x,
+            "type": 'pie'
+        }
+        
+    return {
+            "type": type,
+            "x": x,
+            "y": y
+        }
+    
 class ChartDataAPIViewV2(APIView):
     def get(self, request, format=None):
         quarters = Quarter.objects.all()
@@ -169,7 +194,6 @@ class ChartDataAPIViewV2(APIView):
             is_current=True
         )
         
-        print("type:" + type)
 
         try:
             df = pd.read_csv(csv_file.csv_path)
@@ -187,16 +211,13 @@ class ChartDataAPIViewV2(APIView):
                 applications = df[application_col].fillna("").tolist()
                 values = df[selected_filter].fillna(0).tolist()
                 
+                
+                trace = format_chart_trace(applications,values, chart_type)
+                
                 return Response({
                     'quarter':get_quarter_navigation_object(quarter_number, slug),
                     'chart_config':{
-                        "traces":[
-                            {
-                                "type": "bar", #TODO: Mapping for slugs to chart types
-                                "x": applications,
-                                "y": values
-                            }
-                        ],
+                        "traces":[trace],
                         "layout":{}
                     },
                     'title': csv_file.sheet_name,
@@ -224,7 +245,7 @@ class ChartDataAPIViewV2(APIView):
                     trace = {
                         "x": x,
                         "y": [row[col] for col in x],
-                        "name": row[0].strip('.').title(),
+                        "name": row[0],
                         "type": "bar"
                     }
                     traces.append(trace)
@@ -236,7 +257,12 @@ class ChartDataAPIViewV2(APIView):
                     'chart_config':{
                         "traces":traces,
                         "layout":{
-                            "barmode": "group"
+                            "barmode": "stack",
+                            "showlegend":True,
+                            "legend": {
+                                "title": { "text": '' },     
+                                "traceorder": 'normal'
+                            }
                         }
                     },
                     "options": available_column_filters,
@@ -251,7 +277,14 @@ class ChartDataAPIViewV2(APIView):
                 return Response(response_data)
 
         except Exception as e:
-            return Response(
-                {"error": f"Error reading file: {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+            return Response({
+                'quarter':get_quarter_navigation_object(quarter_number, slug),
+                "error": f"Error reading file: {str(e)}",
+                'chart_config':{
+                    "traces":[],
+                    "layout":{}
+                },
+                'title': csv_file.sheet_name,
+                "options": [],
+                'selected_option': None
+            })

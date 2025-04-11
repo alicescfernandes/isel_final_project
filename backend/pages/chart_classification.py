@@ -76,17 +76,17 @@ CHART_CLASSIFICATION = {
         "type": "simple"
     },
     "web-traffic-budgets": {
-        "chart_type": "line",
+        "chart_type": "bar",
         "type": "simple",
         'column_name':None
     },
     "commissions-to-web-partners": {
-        "chart_type": "line",
+        "chart_type": "bar",
         "type": "simple",
         'column_name':None
     },
     "web-productivity-budgets": {
-        "chart_type": "line",
+        "chart_type": "bar",
         "type": "simple",
         'column_name':None
     },
@@ -101,27 +101,27 @@ CHART_CLASSIFICATION = {
         'column_name':None
     },
     "customer-needs-and-wants": {
-        "chart_type": "pie",
+        "chart_type": "bar",
         "type": "simple",
         'column_name':None
     },
     "web-customer-needs-and-wants": {
-        "chart_type": "pie",
+        "chart_type": "bar",
         "type": "simple",
         'column_name':None
     },
     "market-demand": {
-        "chart_type": "line",
+        "chart_type": "pie",
         "type": "simple",
         'column_name':None
     },
     "market-share": {
-        "chart_type": "stacked bar",
+        "chart_type": "pie",
         "type": "simple",
         'column_name':None
     },
-    "12-month-potential-demand": {
-        "chart_type": "line",
+    "month-potential-demand": {
+        "chart_type": "bar",
         "type": "simple",
         'column_name':None
     },
@@ -156,7 +156,7 @@ CHART_CLASSIFICATION = {
         'column_name':None
     },
     "sales-total": {
-        "chart_type": "line",
+        "chart_type": "bar",
         "type": "simple",
         'column_name':None
     },
