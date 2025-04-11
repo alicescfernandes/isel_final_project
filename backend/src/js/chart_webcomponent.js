@@ -9,8 +9,8 @@ class PlotlyChart extends HTMLElement {
             chartSlug: this.getAttribute("chart_slug"),
             initialLoad: true,
             quarterNumber: this.getAttribute("q"),
-            data: {
-            }
+            isError: false,
+            isLoading:true
         };
 
     }
@@ -31,21 +31,34 @@ class PlotlyChart extends HTMLElement {
         }
 
         fetch(`${API_BASE_URL}chart/?${params.toString()}`)
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return res.json()
+            })
             .then((data) => {
                 const { selected_option, ...rest } = data
                 this.setState({
                     initialLoad: false,
+                    isLoading: false,
                     selectedOption: Boolean(selected_option) ? selected_option : "", // save what comes from the server
                     ...rest,
                 })
+            }).catch(() => {
+                console.log("setting state", this.state.chartSlug)
+                this.setState({
+                    initialLoad: false,
+                    isLoading:false,
+                    isError:true
+                })
             })
+
     }
 
     setState(newState) {
         this.state = { ...this.state, ...newState };
         this.render()
-        console.log(this.state)
     }
 
     renderQuarterNavigation() {
@@ -67,20 +80,49 @@ class PlotlyChart extends HTMLElement {
                         </div>
                     `
     }
+
+    renderError() {
+        this.innerHTML = `
+            <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:text-red-400 dark:border-red-800" role="alert">
+            <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-bold">Unable to render chart.</span> Try uploading a new one with the data.
+            </div>
+            </div>
+        `;
+    }
+
+    renderEmptyState() {
+        return `
+            <div class="flex items-center p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:text-blue-400 dark:border-blue-800" role="alert">
+                <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    The graph doesn't have data to show.
+                </div>
+            </div>
+        `;
+    }
     render() {
-        const hasOptions = Boolean(this.state.options);
+        const hasOptions = Boolean(this.state.options && this.state.options.length > 0);
+
 
         if (this.state.initialLoad) {
-            this.renderSpinner()
-            return;
+            return this.renderSpinner()
         }
 
-        this.innerHTML = `<div id="${this.id}">
-                
+        if(this.state.isError){
+            return this.renderError()
+        }
+    
+        this.innerHTML = `<div id="${this.id}"> 
                 <div class="chart-header flex justify-between mb-2">
-                    <h5 class="chart-title text-2xl font-semibold tracking-tight  flex-1">
-                        Padrão de Utilização (Q1-2025)
-                        </h5>
+                    <h5 class="chart-title text-2xl font-semibold tracking-tight  flex-1"></h5>
                     <div class="chart-quarter-navigation">
                     </div>
                 </div>
@@ -139,7 +181,6 @@ class PlotlyChart extends HTMLElement {
         if (select) {
             select.addEventListener('change', (e) => {
                 const value = e.target.value;
-                console.log(`Dropdown mudou: ${value}`);
                 this.setState({
                     selectedOption: value
                 })
@@ -171,65 +212,32 @@ class PlotlyChart extends HTMLElement {
         }
     }
 
-    normalizeData() {
-        const { data } = this.state
-        const { type, x, y } = data
-
-
-        switch (type) {
-            case 'pie':
-                return [{
-                    type,
-                    labels: x,
-                    values: y,
-                }];
-            case 'bar':
-            case 'line':
-            case 'scatter':
-                return [{
-                    type,
-                    x,
-                    y,
-                    mode: (type === 'scatter' || type === 'line') ? 'lines+markers' : undefined
-                }];
-            default:
-                return [{
-                    type,
-                    x,
-                    y
-                }];
-        }
-    }
-
+    // Chart is fully configured from the backend, using the Plotly API
     async renderChart() {
+        
         if (!this.isConnected || this.state.isLoading) return;
+        
+        const { title, chart_config } = this.state
 
-        const { data, title } = this.state
-
-        const type = data.type
-        let x = [], y = [];
-
-        try {
-            x = JSON.parse(this.getAttribute('x') || '[]');
-            y = JSON.parse(this.getAttribute('y') || '[]');
-        } catch (err) {
-            console.error('Erro ao fazer parse dos atributos x e y:', err);
-            return;
-        }
-
-        const normalizeData = this.normalizeData(type, x, y);
-        const layout = { title: '' };
+        const { traces, layout} = chart_config
 
         const container = this.querySelector(`#${this.id} .chart`);
+
+
         const titleEl = this.querySelector(`#${this.id} .chart-title`);
         if (titleEl) titleEl.textContent = `${title} - Q${this.state.quarter.current}`;
+
+        if(traces.length <= 0){
+            container.innerHTML = this.renderEmptyState()
+            return;
+        }
 
         if (!window.Plotly) {
             await import('https://cdn.plot.ly/plotly-2.30.0.min.js');
         }
 
         if (container) {
-            Plotly.newPlot(container, normalizeData, layout, {
+            Plotly.newPlot(container, traces, layout, {
                 responsive: true,
             });
         }
