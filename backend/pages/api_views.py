@@ -70,6 +70,7 @@ class ChartDataAPIView(APIView):
             if(type=="double"):
                 chart_response = process_double_chart(df, chart_meta,csv_file.sheet_name, filter)
                 return Response(quarter_data | chart_response)
+            
 
         except Exception as e:
             return Response(return_empty_response(quarter_number, slug, e, csv_file.sheet_name))

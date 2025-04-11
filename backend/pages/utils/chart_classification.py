@@ -1,6 +1,6 @@
 CHART_CLASSIFICATION = {
     "industry-results-for": {
-        "chart_type": "box quarter",
+        "chart_type": "box",
         "type": "simple",
         'column_name':None
     },
@@ -30,28 +30,27 @@ CHART_CLASSIFICATION = {
         'column_name':"Company"
     },
     "sales-force-noram": {
-        "chart_type": "stacked bar",
+        "chart_type": "bar",
         "type": "double",
         'column_name':"City"
-
     },
     "sales-force-mea": {
-        "chart_type": "stacked bar",
+        "chart_type": "bar",
         "type": "double",
         'column_name':"City"
     },
     "sales-force-latam": {
-        "chart_type": "stacked bar",
+        "chart_type": "bar",
         "type": "double",
         'column_name':"City"
     },
     "sales-force-europe": {
-        "chart_type": "stacked bar",
+        "chart_type": "bar",
         "type": "double",
         'column_name':"City"
     },
     "sales-force-apac": {
-        "chart_type": "stacked bar",
+        "chart_type": "bar",
         "type": "double",
         'column_name':"City"
     },
@@ -96,7 +95,7 @@ CHART_CLASSIFICATION = {
         'column_name':None
     },
     "cumulative-results-for-quarter": {
-        "chart_type": "line",
+        "chart_type": "box",
         "type": "simple",
         'column_name':None
     },
