@@ -1,5 +1,5 @@
 source venv/Scripts/activate
-cd backend
+cd dashboard
 # npm run build:css &
 python manage.py makemigrations
 python manage.py migrate

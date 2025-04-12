@@ -1,4 +1,4 @@
 source venv/Scripts/activate
-cd backend
+cd dashboard
 python manage.py makemigrations
 python manage.py migrate

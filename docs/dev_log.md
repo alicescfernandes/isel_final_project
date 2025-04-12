@@ -1,5 +1,9 @@
 # Dev Log
 
+## 04/12/2025
+
+- [x] Add proper collectstatic to the app
+
 ## 04/11/2025
 
 - [x] Add sheet parsing to the endpoints

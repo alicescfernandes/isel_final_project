@@ -1,3 +1,3 @@
 source venv/Scripts/activate
 cd dashboard
-python manage.py createsuperuser
+python manage.py collectstatic
