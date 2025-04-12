@@ -4,11 +4,11 @@
 {% block title %}Home - Dashboard{% endblock %}
 
 {% block extra_head %}
-<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+<link href="https://unpkg.com/filepond@4.32.7/dist/filepond.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="{% static 'css/page_uploads.css' %}">
 
-<script defer src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-<script defer src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+<script defer src="https://unpkg.com/filepond@4.32.7/dist/filepond.min.js"></script>
+<script defer src="https://unpkg.com/filepond-plugin-file-validate-type@1.2.9/dist/filepond-plugin-file-validate-type.min.js"></script>
 <script defer type="module" src="{% static 'js/page_uploads.js' %}"></script>
 {% endblock %}
 

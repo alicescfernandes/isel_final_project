@@ -163,10 +163,6 @@ class PlotlyChart extends HTMLElement {
             return;
         }
 
-        if (!window.Plotly) {
-            await import('https://cdn.plot.ly/plotly-2.30.0.min.js');
-        }
-
         Plotly.newPlot(container, traces, layout, { responsive: true });
     }
 

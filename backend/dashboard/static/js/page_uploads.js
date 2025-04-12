@@ -1,0 +1,2 @@
+(()=>{FilePond.registerPlugin(FilePondPluginFileValidateType);FilePond.create(document.querySelector("#filepond"),{allowMultiple:!0,storeAsFile:!0,acceptedFileTypes:["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","application/vnd.ms-excel"],fileValidateTypeDetectType:(n,i)=>new Promise(e=>{let t=n.name.toLowerCase();if(t.endsWith(".xls"))return e("application/vnd.ms-excel");if(t.endsWith(".xlsx"))return e("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");e(i)})});})();
+//# sourceMappingURL=page_uploads.js.map

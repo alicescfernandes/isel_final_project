@@ -1,7 +1,7 @@
 /* static/css/tailwind.css or input.css */
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
+
 @import 'flowbite';
 
 /* Navbar */

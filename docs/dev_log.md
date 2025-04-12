@@ -14,7 +14,6 @@ _Stuff that is not important and just nice haves_
 ## TODO
 
 - [ ] Fork the branch for the FEIM presentation and freeze it
-- [ ] Extract remaining tailwind classes into the CSS file
 - [ ] Add Sections - Extract the names from the XSLX file. This will require some template changes
 - [ ] Add alert when there is still Excel files in processing
 
@@ -22,6 +21,8 @@ _Stuff that is not important and just nice haves_
 
 - [x] Add lazy load with intersection observer to the web component
 - [x] Ensure that all phase 1 charts are supported, without any bugs or errors
+- [x] Loads all files from unpkg CDN.
+- [x] Extract remaining tailwind classes into the CSS file
 
 ## 04/11/2025
 
