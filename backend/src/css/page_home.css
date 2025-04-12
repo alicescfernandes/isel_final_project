@@ -19,3 +19,11 @@
     background: none !important;
     margin: 0 2px !important;
 }
+
+
+
+/* Web Components */
+plotly-chart {
+    @apply col-span-8 lg:col-span-4 p-6 bg-white border border-gray-200 rounded-lg shadow-sm;
+    min-height: 350px;
+}
