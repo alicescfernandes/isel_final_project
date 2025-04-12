@@ -4,16 +4,27 @@ const fs = require('fs');
 const path = require('path');
 const postcss = require('postcss');
 const postcssConfig = require('./postcss.config');
+const sass = require('sass');
 
 const isWatchMode = process.argv.includes('--watch');
 
 async function buildCSS() {
-  const cssFiles = await fg('src/css/**/*.css');
+  const cssFiles = await fg(['src/css/**/*.css', 'src/css/**/*.scss']);
 
   const processAll = async () => {
     await Promise.all(cssFiles.map(async (inputPath) => {
-      const outputPath = inputPath.replace(/^src/, './dashboard/static');
-      const css = fs.readFileSync(inputPath, 'utf8');
+      const outputPath = inputPath
+        .replace(/^src/, './dashboard/static')
+        .replace(/\.scss$/, '.css');
+
+      let css;
+
+      if (inputPath.endsWith('.scss')) {
+        const result = sass.compile(inputPath, { style: 'expanded' });
+        css = result.css;
+      } else {
+        css = fs.readFileSync(inputPath, 'utf8');
+      }
 
       const result = await postcss(postcssConfig.plugins).process(css, {
         from: inputPath,
@@ -30,19 +41,19 @@ async function buildCSS() {
 
   if (isWatchMode) {
     fs.watch('src/css', { recursive: true }, async (eventType, filename) => {
-      if (filename.endsWith('.css')) {
-        console.log('Alteração detetada em CSS:', filename);
+      if (filename.endsWith('.css') || filename.endsWith('.scss')) {
+        console.log('Alteração detetada em CSS/SCSS:', filename);
         await processAll();
       }
     });
-    console.log('A ver ficheiros CSS...');
+    console.log('A ver ficheiros CSS/SCSS...');
   }
 }
 
 async function buildJS() {
   const entryPoints = await fg('src/js/*.js');
 
-  
+
   const ctx = await esbuild.context({
     entryPoints,
     outdir: './dashboard/static/js',
