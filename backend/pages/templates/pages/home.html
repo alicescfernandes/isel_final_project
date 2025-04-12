@@ -6,17 +6,12 @@
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/page_home.css' %}">
 <script type="module" src="{% static 'js/chart_webcomponent.js' %}"></script>
-
+<script defer src='https://cdn.plot.ly/plotly-3.0.1.min.js'></script>
 {% endblock %}
 
 {% block content %}
 
 <div class="grid grid-cols-8 gap-4">
-    <!--
-        <plotly-chart chart_slug="chart_slug" options='["Opção 1", "Opção 2", "Opção 3"]' type="pie"
-            x='["Dogs", "Cats", "Birds"]' y='[30, 45, 25]' title="Animais Adotados"></plotly-chart>
-        <plotly-chart type="bar" x='["Dogs", "Cats", "Birds"]' y='[30, 45, 25]' title="Animais Adotados"></plotly-chart>
-    -->
     {% for item in chart_slugs %}
     {% endfor %}
 

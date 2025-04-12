@@ -2,11 +2,19 @@
 
 Newer entries are inserted on the TODO section, and then moved into the day that they were done
 
+## Maybe TODO
+
+_Stuff that is not important and just nice haves_
+
+- [ ] Use Yarn instead of NPM
+- [ ] Use Axios instead of fetch
+- [ ] Adds preload tags for faster loading
+- [ ] Check if the flowbite JS file can be imported from node_modules
+
 ## TODO
 
 - [ ] Fork the branch for the FEIM presentation and freeze it
 - [ ] Extract remaining tailwind classes into the CSS file
-- [ ] Check if the flowbite JS file can be imported from node_modules
 - [ ] Add Sections - Extract the names from the XSLX file. This will require some template changes
 - [ ] Add alert when there is still Excel files in processing
 
