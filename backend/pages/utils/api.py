@@ -50,7 +50,6 @@ def get_request_params(request):
 
 def return_empty_response(quarter_number, slug,error,sheet_name ):
     return {
-        'quarter':get_quarter_navigation_object(quarter_number, slug),
         "error": f"Error reading file: {str(error)}",
         'chart_config':{
             "traces":[],
