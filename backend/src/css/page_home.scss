@@ -1,4 +1,4 @@
-/* Charts */
+/* Plotly hammer to make sure that the modebar appears as a single line */
 .modebar {
     background: none !important;
     display: flex !important;
@@ -24,19 +24,17 @@
 plotly-chart {
     @apply col-span-8 lg:col-span-4 p-6 bg-white border border-gray-200 rounded-lg shadow-sm;
     min-height: 350px;
-
-    .chart-quarter-text {
-        @apply disabled:text-gray-100 text-gray-500 text-xl
+    
+    .spinner{
+        &-container{
+            @apply h-full flex justify-center items-center
+        }
+    
+        &-svg{
+            @apply w-8 h-8 text-gray-200 animate-spin fill-blue-600
+        }
     }
-
-    .spinner-container{
-        @apply h-full flex justify-center items-center
-    }
-
-    .spinner-svg{
-        @apply w-8 h-8 text-gray-200 animate-spin fill-blue-600
-    }
-
+    
     .alert{
         &-error{
             @apply flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50;
@@ -59,9 +57,11 @@ plotly-chart {
         }
 
         &-filter{
-            @apply mb-4 p-2 border rounded-md text-sm
+            @apply border rounded-md text-sm
+        }
+
+        &-quarter-nav-btn {
+            @apply disabled:text-gray-100 text-gray-500 text-xl
         }
     }
-
-
 }

@@ -8,6 +8,7 @@ Newer entries are inserted on the TODO section, and then moved into the day that
 - [ ] Extract remaining tailwind classes into the CSS file
 - [ ] Check if the flowbite JS file can be imported from node_modules
 - [ ] Add Sections - Extract the names from the XSLX file. This will require some template changes
+- [ ] Add alert when there is still Excel files in processing
 
 ## 04/12/2025
 
