@@ -2,12 +2,12 @@ services:
   django:
     build: .
     container_name: django
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn dashboard.wsgi:application --chdir dashboard --bind 0.0.0.0:8000
     volumes:
-      - .:/app
-      - ./staticfiles:/static
-    depends_on:
-      - nginx
+      - ./dashboard:/app  # map the django app into the container's /app
+      - ./staticfiles:/static  # expose collected static files to Nginx
+    networks:
+      - webnet
 
   nginx:
     image: nginx:latest
@@ -15,8 +15,15 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./staticfiles:/static
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./dashboard/staticfiles:/static
+      - ./docker/nginx:/etc/nginx/conf.d:ro
+    depends_on:
+      - django
+    networks:
+      - webnet
+    extra_hosts:
+      - "dashboard-app.local:127.0.0.1"
+      - "127.0.0.1:127.0.0.1"
 
-volumes:
-  static_volume:
+networks:
+  webnet:
