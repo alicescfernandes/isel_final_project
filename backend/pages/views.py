@@ -66,7 +66,6 @@ def home(request):
                 "quarter_number": csv.quarter_file.quarter.number,
             })
 
-    print(sections)
     return render(request, 'pages/home.html', {
         "app_context":{
             "qn":quarter.number,
@@ -107,17 +106,14 @@ def edit_quarter(request, uuid):
     quarter = get_object_or_404(Quarter, uuid=uuid)
 
     if request.method == 'POST':
-        # Atualizar número do quarter
         new_number = request.POST.get('number')
         if new_number:
             quarter.number = new_number
             quarter.save()
 
-        # Upload de múltiplos ficheiros
         files = request.FILES.getlist('files')
-        print("files", files)
         for f in files:
-            excell_file = ExcellFile.objects.create(
+            ExcellFile.objects.create(
                 quarter=quarter,
                 file=f
             )

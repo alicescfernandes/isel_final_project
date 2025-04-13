@@ -1,0 +1,21 @@
+{% load custom_tags %}
+
+{% if sections %}
+  <div class="floating-toc">
+    <button data-collapse-toggle="floating-toc" type="button" class="" aria-controls="floating-toc" aria-expanded="false" class="floating-toc-button">
+      <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
+      </svg>
+    </button>
+
+    <div id="floating-toc" class="hidden floating-toc-menu">
+      <ul class="space-y-2 text-sm font-medium text-gray-900">
+        {% for section_name, charts in sections.items %}
+          <li>
+            <a href="#section-{{ section_name|slug }}" class="block px-2 py-1 rounded hover:bg-blue-50 transition-all duration-150">{{ section_name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}

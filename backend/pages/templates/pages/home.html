@@ -5,37 +5,26 @@
 {% block title %}Home - Dashboard{% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/page_home.css' %}">
 <script src='https://unpkg.com/plotly.js-dist-min@3.0.1/plotly.min.js'></script>
+
+<link rel="stylesheet" href="{% static 'css/page_home.css' %}">
 <script type="module" src="{% static 'js/chart_webcomponent.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 
-
-<nav id="floating-toc">
-    <ul>
-      {% for section_name, charts in sections.items %}
-        <li>
-          <a href="#section-{{ section_name|slug }}">{{ section_name }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </nav>
-  
+{% include 'sections/floating-toc.html' %}
 
 {% for section_name, charts in sections.items %}
 <div id="section-{{section_name|slugify}}">
     <h2 class="{% if forloop.first %}first{% endif %}">
         {{ section_name }}
-      </h2>
+    </h2>
     <div class="grid grid-cols-8 gap-4">
         {% for chart in charts %}
             <plotly-chart chart_slug="{{ chart.slug }}" q="{{ chart.quarter_number }}"></plotly-chart>
         {% endfor %}
     </div>
-
-
 </div>
 {% endfor %}
 
@@ -59,7 +48,7 @@
       const observerOptions = {
         root: null,
         rootMargin: "10px",
-        threshold: 0.25 // quando 50% do h2 está visível
+        threshold: 0.1
       };
     
       const observer = new IntersectionObserver((entries) => {

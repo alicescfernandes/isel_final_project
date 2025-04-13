@@ -2,10 +2,13 @@
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
-@import 'flowbite';
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../../node_modules/flowbite";
+
 
 .container {
-    @apply px-2 lg:px-20
+    @apply px-2 lg:px-20;
 }
 
 /* Navbar */

@@ -17,11 +17,12 @@ _Stuff that is not important and just nice haves_
 - [ ] Django DRF Caching (either Redis or Memcached)
 - [ ] Setup Postgres (Only during using auth)
 - [ ] When deleting an excell, update the active CSV's to a previous version
+- [ ] Add alert when there is still Excel files in processing
 
 ## 04/13/2025
 
 - [x] Add Sections - Extract the names from the XSLX file. This will require some template changes. Make sure that the sections are tagged by ID so users can link then (or bookmark them)
-- [ ] Add alert when there is still Excel files in processing
+- [ ] Move sections into navbar
 
 ## 04/12/2025
 
