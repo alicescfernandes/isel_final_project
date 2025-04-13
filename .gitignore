@@ -5,3 +5,4 @@ node_modules
 *.sqlite3
 uploads/
 !page_uploads.scss
+staticfiles/
