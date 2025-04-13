@@ -22,7 +22,7 @@ _Stuff that is not important and just nice haves_
 ## 04/13/2025
 
 - [x] Add Sections - Extract the names from the XSLX file. This will require some template changes. Make sure that the sections are tagged by ID so users can link then (or bookmark them)
-- [ ] Move sections into navbar
+- [x] Move sections into navbar
 
 ## 04/12/2025
 
