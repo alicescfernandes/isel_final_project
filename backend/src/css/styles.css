@@ -41,7 +41,7 @@
 
 /* Mobile menu */
 .navbar-menu {
-    @apply hidden w-full md:block md:w-auto;
+    @apply w-full md:block md:w-auto;
 }
 
 /* Menu list */
