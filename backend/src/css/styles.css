@@ -60,7 +60,7 @@
 }
 
 .dropdown-container {
-    @apply z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44;
+    @apply z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-xl;
 }
 
 html {
