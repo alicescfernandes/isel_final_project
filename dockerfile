@@ -10,4 +10,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN cd dashboard && python manage.py collectstatic --noinput
+RUN cd backend && python manage.py collectstatic --noinput

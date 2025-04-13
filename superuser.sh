@@ -1,3 +1,3 @@
 source venv/Scripts/activate
-cd dashboard
+cd backend
 python manage.py createsuperuser
