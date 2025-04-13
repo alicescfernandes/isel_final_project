@@ -1,14 +1,3 @@
-function openEditModal(button) {
-    const uuid = button.getAttribute('data-quarter-id');
-    const number = button.getAttribute('data-quarter-number');
-
-    const form = document.getElementById('edit-quarter-form');
-    const input = document.getElementById('edit-quarter-number');
-
-    input.value = number;
-    form.action = `/quarters/edit/${uuid}/`;
-}
-
 FilePond.registerPlugin(FilePondPluginFileValidateType);
 
 FilePond.create(document.querySelector('#filepond'), {
@@ -34,4 +23,24 @@ FilePond.create(document.querySelector('#filepond'), {
         }),
     // labelFileTypeNotAllowed: 'Apenas ficheiros Excel (.xls, .xlsx) são permitidos.',
     // fileValidateTypeLabelExpectedTypes: 'Tipos permitidos: {allTypes}'
+});
+
+export function openEditModal(button) {
+    const uuid = button.getAttribute('data-quarter-id');
+    const number = button.getAttribute('data-quarter-number');
+
+    const form = document.getElementById('edit-quarter-form');
+    const input = document.getElementById('edit-quarter-number');
+
+    input.value = number;
+    form.action = `/quarters/edit/${uuid}/`;
+}
+
+// Attach event listener to the document (delegation)
+document.addEventListener("click", (e) => {
+    const target = e.target.closest('.upload-edit-link');
+    if (target) {
+        console.log("click");
+        openEditModal(target);
+    }
 });

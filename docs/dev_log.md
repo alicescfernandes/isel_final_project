@@ -16,6 +16,7 @@ _Stuff that is not important and just nice haves_
 - [ ] Fork the branch for the FEIM presentation and freeze it
 - [ ] Add Sections - Extract the names from the XSLX file. This will require some template changes
 - [ ] Add alert when there is still Excel files in processing
+- [ ] When deleting an excell, update the active CSV's to a previous version
 
 ## 04/12/2025
 

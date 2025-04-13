@@ -5,6 +5,7 @@ const path = require('path');
 const postcss = require('postcss');
 const postcssConfig = require('./postcss.config');
 const sass = require('sass');
+const { platform } = require('os');
 
 const isWatchMode = process.argv.includes('--watch');
 
@@ -58,9 +59,11 @@ async function buildJS() {
     entryPoints,
     outdir: './dashboard/static/js',
     bundle: true,
-    minify: true,
+    target: ['es2015'],
+    // minify: true,
     sourcemap: true,
-    format: 'iife',
+    // format: 'iife',
+    platform: "browser"
   });
 
 
