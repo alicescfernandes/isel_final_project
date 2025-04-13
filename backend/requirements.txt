@@ -1,6 +1,7 @@
 gunicorn==23.0.0
 packaging==24.2
 djangorestframework
+psycopg2-binary
 asgiref==3.8.1
 certifi==2024.8.30
 cffi==1.17.1
