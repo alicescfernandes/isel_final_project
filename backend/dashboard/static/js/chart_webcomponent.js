@@ -53,8 +53,8 @@
   var PlotlyChart = class extends HTMLElement {
     constructor() {
       super();
-      this.id = `chart_${Math.floor(Math.random() * 1e6)}`;
       this.initState();
+      this.id = `chart_${this.state.chartSlug}`;
     }
     initState() {
       this.state = {

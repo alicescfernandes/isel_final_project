@@ -65,3 +65,48 @@ plotly-chart {
         }
     }
 }
+
+h2 {
+    @apply text-4xl font-semibold my-8;
+
+    &.first{
+        margin-top: 0;
+    }
+}
+
+
+#floating-toc {
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+#floating-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#floating-toc a {
+    display: block;
+    padding: 4px 8px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+#floating-toc a:hover {
+    text-decoration: underline;
+}
+
+#floating-toc a.active {
+    font-weight: bold;
+    background: #eef;
+    border-left: 3px solid #007bff;
+}
+

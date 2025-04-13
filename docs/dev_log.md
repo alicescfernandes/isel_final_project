@@ -8,15 +8,20 @@ _Stuff that is not important and just nice haves_
 
 - [ ] Use Yarn instead of NPM
 - [ ] Use Axios instead of fetch
-- [ ] Adds preload tags for faster loading
+- [ ] Adds preload tags for faster loading of scripts
 - [ ] Check if the flowbite JS file can be imported from node_modules
 
 ## TODO
 
 - [ ] Fork the branch for the FEIM presentation and freeze it
-- [ ] Add Sections - Extract the names from the XSLX file. This will require some template changes
-- [ ] Add alert when there is still Excel files in processing
+- [ ] Django DRF Caching (either Redis or Memcached)
+- [ ] Setup Postgres (Only during using auth)
 - [ ] When deleting an excell, update the active CSV's to a previous version
+
+## 04/13/2025
+
+- [x] Add Sections - Extract the names from the XSLX file. This will require some template changes. Make sure that the sections are tagged by ID so users can link then (or bookmark them)
+- [ ] Add alert when there is still Excel files in processing
 
 ## 04/12/2025
 
