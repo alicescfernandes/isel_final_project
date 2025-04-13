@@ -13,8 +13,6 @@
 
 {% block content %}
 
-{% include 'sections/floating-toc.html' %}
-
 {% for section_name, charts in sections.items %}
 <div id="section-{{section_name|slugify}}">
     <h2 class="{% if forloop.first %}first{% endif %}">
@@ -56,10 +54,9 @@
         console.log("start")
           const id = entry.target.id;
           const link = document.querySelector(`#floating-toc a[href="#${id}"]`);
-        console.log("entry",entry)
           if (entry.isIntersecting) {
             tocLinks.forEach(l => l.classList.remove("active"));
-            console.log("hello")
+            console.log("setting up active")
             if (link) link.classList.add("active");
           }
         });

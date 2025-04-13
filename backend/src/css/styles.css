@@ -59,6 +59,14 @@
     @apply text-white md:text-blue-700;
 }
 
+.dropdown-container {
+    @apply z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44;
+}
+
 html {
     scroll-behavior: smooth;
+}
+
+a.active {
+    @apply font-semibold
 }

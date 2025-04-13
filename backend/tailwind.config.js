@@ -7,7 +7,7 @@ module.exports = {
     './**/templates/**/*.html',
     './static/js/**/*.js',
     './node_modules/flowbite/**/*.js',
-    '**/src/**/*.{html,js,css,scss}', // node modules being included here
+    '**/src/**/*.{html,js,css,scss}',
   ],
   theme: {
     extend: {},

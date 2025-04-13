@@ -10,6 +10,7 @@
     </button>
     <div class="navbar-menu" id="navbar-default">
       <ul class="navbar-menu-list">
+        {% include 'sections/floating-toc.html' %}
         <li>
           <a href="/" class="{% if request.path == '/' %} navbar-link navbar-link-active {% else %} navbar-link {% endif %}" {% if request.path == '/' %} aria-current="page" {% endif %}>
             Home
