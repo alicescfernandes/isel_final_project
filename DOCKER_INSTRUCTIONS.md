@@ -41,3 +41,5 @@ docker-compose -f docker-compose.prod.yml exec web python manage.py collectstati
 
 docker container prune
 docker volume prune
+
+# docker run --name some-nginx -p 80:80 nginx

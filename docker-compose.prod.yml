@@ -35,11 +35,16 @@ services:
   nginx:
     build: ./infra/nginx
     ports:
-      - 1337:80
+      - 80:80
+      - 443:443
     depends_on:
       - web
     volumes:
       - static_volume:/home/app/web/staticfiles
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`dashboard-app.local`)"
+      - "traefik.http.routers.whoami.entrypoints=web"
 volumes:
   postgres_data:
   mongo_data:
