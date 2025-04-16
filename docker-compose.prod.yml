@@ -15,12 +15,14 @@ services:
     depends_on:
       - postgres
       - mongo
+  
   postgres:
     image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./infra/.env.prod
+  
   mongo:
     image: mongo:6
     env_file:
@@ -28,10 +30,8 @@ services:
     restart: always
     volumes:
       - mongo_data:/data/db
-    ports:
-      - 27017:27017
-
-
+    expose:
+      - 27017
   nginx:
     build: ./infra/nginx
     ports:
