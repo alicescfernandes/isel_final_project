@@ -68,3 +68,4 @@ docs/
 
 *.sh
 !docker.sh 
+src
