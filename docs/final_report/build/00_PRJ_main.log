@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.30)  16 APR 2025 13:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.30)  16 APR 2025 14:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -531,6 +531,11 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 ) (./00_PRJ_padrao.sty
 \defbaselineskip=\skip84
 )
+
+LaTeX Warning: \include should only be used after \begin{document} on input lin
+e 129.
+
+(./acronimos.tex)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count341
@@ -550,24 +555,24 @@ LaTeX Warning: Label `ch:outroDetalheAdicional' multiply defined.
 )
 \openout1 = `00_PRJ_main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 141.
-LaTeX Font Info:    ... okay on input line 141.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
  (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count342
@@ -591,16 +596,16 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \c@lstlisting=\count348
-Package hyperref Info: Link coloring OFF on input line 141.
+Package hyperref Info: Link coloring OFF on input line 135.
 
 (build/00_PRJ_main.out) (build/00_PRJ_main.out)
 \@outlinefile=\write5
 \openout5 = `00_PRJ_main.out'.
 
-<./fig_logo_ISEL.png, id=184, 464.4552pt x 456.7464pt>
+<./fig_logo_ISEL.png, id=188, 464.4552pt x 456.7464pt>
 File: ./fig_logo_ISEL.png Graphic file (type png)
 <use ./fig_logo_ISEL.png>
-Package pdftex.def Info: ./fig_logo_ISEL.png  used on input line 147.
+Package pdftex.def Info: ./fig_logo_ISEL.png  used on input line 141.
 (pdftex.def)             Requested size: 49.79231pt x 48.95988pt.
 
 
@@ -668,7 +673,7 @@ l.28 \myPrefaceChapter{Abstract}
 
 
 Package babel Info: 'portuguese' activates 'portuges' shorthands.
-(babel)             Reported  on input line 165.
+(babel)             Reported  on input line 159.
 [8] (build/00_PRJ_main.lot)
 \tf@lot=\write7
 \openout7 = `00_PRJ_main.lot'.
@@ -710,15 +715,15 @@ Package babel Info: 'portuguese' activates 'portuges' shorthands.
 Cap\'{\i }tulo 1.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 27.
+(hyperref)                than one, level fixed on input line 23.
 
 
-Underfull \vbox (badness 2150) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [3]
-Overfull \hbox (7.33754pt too wide) in paragraph at lines 45--46
+Overfull \hbox (7.33754pt too wide) in paragraph at lines 41--42
 []\OT1/cmr/m/n/12 Adotar um mo-delo de or-ga-niza^^Xc~ao se-me-lhante ^^Ra pla-
 ta-forma de si-mula^^Xc~ao,
  []
@@ -737,7 +742,7 @@ Cap\'{\i }tulo 2.
 [6]
 Cap\'{\i }tulo 3.
 
-Overfull \hbox (12.36804pt too wide) in paragraph at lines 91--92
+Overfull \hbox (12.36804pt too wide) in paragraph at lines 85--86
 \OT1/cmr/m/n/12 Os re-qui-si-tos fun-ci-o-nais des-cre-vem as fun-ci-o-na-li-da
 -des es-pec^^S^^Pficas que a aplica^^Xc~ao
  []
@@ -750,9 +755,9 @@ Underfull \vbox (badness 5519) has occurred while \output is active []
 [7
 
 ]
-Overfull \hbox (1.48077pt too wide) in paragraph at lines 94--95
-[]\OT1/cmr/bx/n/12 Visualiza^^Xc~oes din^amicas: \OT1/cmr/m/n/12 a aplica^^Xc~a
-o deve con-se-guir mos-trar gr^^Saficos
+Overfull \hbox (4.90439pt too wide) in paragraph at lines 88--89
+[]\OT1/cmr/bx/n/12 Visualiza^^Xc~oes in-te-ra-ti-vas: \OT1/cmr/m/n/12 a aplica^
+^Xc~ao deve con-se-guir mos-trar gr^^Saficos
  []
 
 
@@ -760,16 +765,23 @@ o deve con-se-guir mos-trar gr^^Saficos
 [8]
 
 [9]
+Underfull \vbox (badness 1776) has occurred while \output is active []
+
+
 
 [10]
 
-[11]) (./01_PRJ_cap_4_5_6.tex
+[11]
 
 [12]
+
+[13]) (./01_PRJ_cap_4_5_6.tex
+
+[14]
 Cap\'{\i }tulo 4.
 
 
-[13
+[15
 
 ]
 ! Undefined control sequence.
@@ -801,7 +813,7 @@ and I'll forget about whatever was undefined.
 
 
 
-[14]
+[16]
 ! Missing $ inserted.
 <inserted text> 
                 $
@@ -945,7 +957,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 88--90
 
 
 
-[15]
+[17]
 ! Missing } inserted.
 <inserted text> 
                 }
@@ -959,7 +971,7 @@ my insertion and my current dilemma will both disappear.
 
 
 
-[16]
+[18]
 Cap\'{\i }tulo 5.
 File: ./fig_logo_ISEL.png Graphic file (type png)
 <use ./fig_logo_ISEL.png>
@@ -967,30 +979,22 @@ Package pdftex.def Info: ./fig_logo_ISEL.png  used on input line 143.
 (pdftex.def)             Requested size: 56.9055pt x 55.95714pt.
 
 
-[17
+[19
 
 ]
-
-[18
-
-]
-Cap\'{\i }tulo 6.
-) (./02_PRJ_cap_apendice.tex
-
-[19]
 
 [20
 
 ]
-Ap\^endice A.
-
+Cap\'{\i }tulo 6.
+) (./02_PRJ_cap_apendice.tex
 
 [21]
 
 [22
 
 ]
-Ap\^endice B.
+Ap\^endice A.
 
 
 [23]
@@ -998,7 +1002,7 @@ Ap\^endice B.
 [24
 
 ]
-Ap\^endice C.
+Ap\^endice B.
 
 
 [25]
@@ -1006,7 +1010,7 @@ Ap\^endice C.
 [26
 
 ]
-Ap\^endice D.
+Ap\^endice C.
 
 
 [27]
@@ -1014,12 +1018,24 @@ Ap\^endice D.
 [28
 
 ]
-Ap\^endice E.
-)
+Ap\^endice D.
+
 
 [29]
 
 [30
+
+]
+Ap\^endice E.
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\gls' on input line 51.
+
+)
+
+[31]
+
+[32
 
 ]
 No file 00_PRJ_main.bbl.
@@ -1034,16 +1050,16 @@ L3 programming layer <2025-01-18>
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `00_PRJ_main.out' has not changed.
-(rerunfilecheck)             Checksum: 38C23BB535809B8A8D2F49E52D6AD2D2;7792.
+(rerunfilecheck)             Checksum: 6702A1DE2A9DBF6646F3A5A76943EC30;7967.
  ) 
 Here is how much of TeX's memory you used:
- 19302 strings out of 473190
- 348342 string characters out of 5715806
- 807659 words of memory out of 5000000
- 42191 multiletter control sequences out of 15000+600000
- 567373 words of font info for 64 fonts, out of 8000000 for 9000
+ 19403 strings out of 473190
+ 350024 string characters out of 5715806
+ 810295 words of memory out of 5000000
+ 42286 multiletter control sequences out of 15000+600000
+ 567014 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 78i,12n,79p,2372b,585s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 78i,12n,79p,2372b,603s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pf
 b></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pf
@@ -1057,10 +1073,10 @@ al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/loca
 l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local
 /texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/
 texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on build/00_PRJ_main.pdf (46 pages, 334202 bytes).
+Output written on build/00_PRJ_main.pdf (48 pages, 339492 bytes).
 PDF statistics:
- 537 PDF objects out of 1000 (max. 8388607)
- 456 compressed objects within 5 object streams
- 98 named destinations out of 1000 (max. 500000)
- 366 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 550 PDF objects out of 1000 (max. 8388607)
+ 467 compressed objects within 5 object streams
+ 101 named destinations out of 1000 (max. 500000)
+ 374 words of extra memory for PDF output out of 10000 (max. 10000000)
 
