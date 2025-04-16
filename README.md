@@ -6,6 +6,8 @@ A modern, responsive Django website with multiple pages and clean design.
 
 You must have installed a Python version bigger than 3.9. For this project, the development was done under 3.12
 
+You must have Node 22 installed on your machine
+
 You must have a Docker runtime installed, you can either install Docker Desktop, Podman or Rancher and configure it to use the Docker CLI.
 
 ## Quick Start
