@@ -98,9 +98,58 @@ Alguns requisitos não funcionais foram igualmente críticos para garantir a rob
 
 
 \subsection{Casos de Utilização}
-(TODO)
+Com base nos requisitos funcionais e não funcionais identificados na secção anterior, foram definidos os principais casos de utilização que representam os cenários típicos de interação entre o utilizador e a aplicação. Estes casos cobrem tanto a gestão de dados (como o carregamento de ficheiros ou criação de períodos de simulação), como também a autenticação, visualização de informação e manipulação de gráficos. Os diagramas correspondentes encontram-se no Apêndice~\ref{apendice:uml}.
 
-- Colocar UML commo apendice
+Segue-se a descrição textual dos casos principais.
+
+\subsubsection{UC01 - Registo de utilizador}
+
+O utilizador acede à plataforma pela primeira vez e opta por criar uma conta. O sistema solicita os dados de autenticação (email, password) e valida se o utilizador já existe. Caso não exista, a conta é criada e o utilizador é autenticado automaticamente.
+
+\textit{Este caso responde ao requisito funcional de autenticação e está alinhado com os requisitos não funcionais de segurança (armazenamento seguro das passwords e isolamento dos dados por utilizador).}
+
+\subsubsection{UC02 - Autenticação do utilizador}
+
+Ao entrar na aplicação, o utilizador introduz as suas credenciais. O sistema valida o login com base nos dados guardados (Django Auth) e, se for bem-sucedido, redireciona o utilizador para a sua área pessoal.
+
+\textit{Relaciona-se com os requisitos de segurança e experiência de utilizador.}
+
+\subsubsection{UC03 - Criação de um quarter}
+
+O utilizador, já autenticado, pode criar um novo período de simulação (quarter), identificando-o por um número (por exemplo, Quarter 1). O sistema garante que esse número é único para o utilizador e associa um UUID ao quarter criado.
+
+\textit{Este caso reflete o requisito funcional de organização por quarters, e está diretamente ligado à estrutura de dados definida no modelo.}
+
+\subsubsection{UC04 - Carregamento de ficheiros}
+
+O utilizador escolhe um quarter e carrega ficheiros exportados da plataforma de simulação. O sistema valida a extensão, processa os ficheiros, aplica a pipeline de normalização e converte cada folha do Excel num ficheiro \texttt{.csv}. Os dados serão associados ao quarter de onde foram criado.
+
+\textit{Este caso é central no sistema e concretiza os requisitos de Carregamento, normalização dos dados, e compatibilidade com os ficheiros da plataforma Marketplace Simulations.}
+
+\subsubsection{UC05 - Visualização de gráficos}
+
+Após carregar os ficheiros, o utilizador pode aceder a gráficos gerados a partir dos dados normalizados. Os gráficos são interativos, e o utilizador pode aplicar filtros (por exemplo, selecionar o país ou o quarter atual) para ajustar a visualização. Apenas os ficheiros mais recentes são utilizados para construir os gráficos.
+
+\textit{Este caso corresponde ao requisito de visualizações interativas e integra a lógica de isolamento de dados, performance e usabilidade.}
+
+\subsubsection{UC06 - Aplicação de filtros avançados}
+
+Nos gráficos disponíveis, o utilizador pode aplicar diferentes filtros para refinar a visualização dos dados. Estes filtros são enviados para o backend que responde com os dados transformados, respeitando os parâmetros aplicados (ex: tipo de gráfico, quarter selecionado, país, etc.).
+
+\textit{Este caso representa a componente de manipulação dinâmica dos dados e dá resposta aos requisitos de performance e experiência do utilizador.}
+
+\subsubsection{UC07 - Eliminação de ficheiros}
+
+O utilizador pode eliminar ficheiros previamente carregados. O sistema remove as referências no backend, marca os ficheiros antigos como inativos e evita que continuem a ser usados na geração dos gráficos.
+
+\textit{Este caso garante a gestão de dados pelo utilizador e reforça o princípio de manter apenas uma versão ativa por ficheiro.}
+
+\subsubsection{Matriz de Prioridade}
+
+A matriz de prioridade dos casos de utilização encontra-se no Apêndice~\ref{apendice:prioridade}, onde foram atribuídas prioridades com base na frequência de uso e impacto funcional de cada ação.
+
+
+- Colocar UML como apendice
 - Referenciar a matriz prioridade dos casos de utilização
 Com os casos de utilização estabelecidos, foram identificados então os requisitos da plataforma, que podemos separar em requisitos funcionais e não funcionais
 
