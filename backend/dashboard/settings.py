@@ -85,13 +85,27 @@ CORS_ALLOWED_ORIGINS = [
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# PostgreSQL: remains in DATABASES
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT'),
     }
 }
 
+# MongoDB settings for MongoEngine (custom, not under DATABASES)
+MONGODB_SETTINGS = {
+    'db': os.getenv('MONGO_DB_NAME'),
+    'host': os.getenv('MONGO_HOST'),
+    'port': int(os.getenv('MONGO_PORT')),
+    'username': os.getenv('MONGO_USER'),
+    'password': os.getenv('MONGO_PASSWORD'),
+    'authentication_source': 'admin',
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

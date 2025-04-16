@@ -3,16 +3,36 @@ version: '3.8'
 services:
   web:
     build: ./backend
-    command: gunicorn dashboard.wsgi:application --bind 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./backend/:/usr/src/app/
-    expose:
-      - 8000
-    env_file:
-      - ./.env.dev
-  nginx:
-    build: ./nginx
     ports:
-      - 1337:80
-    depends_on:
-      - web
+      - 8000:8000
+    env_file:
+      - ./infra/.env.dev
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  mongo:
+    image: mongo:6
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+
+volumes:
+  postgres_data:
+  mongo_data:

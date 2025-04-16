@@ -1,3 +1,8 @@
+
+## Development
+
+docker-compose -f docker-compose.yml up --build
+
 ## prod
 
 docker-compose -f docker-compose.prod.yml up -d --build

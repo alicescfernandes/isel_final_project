@@ -18,6 +18,7 @@ _Stuff that is not important and just nice haves_
 - [ ] Setup Postgres (Only during using auth)
 - [ ] When deleting an excell, update the active CSV's to a previous version
 - [ ] Add alert when there is still Excel files in processing
+- [ ] Consider using Mongo to store the CSV files (write a POC that replaces the files with Mongo DB)
 
 ## 04/13/2025
 
