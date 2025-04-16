@@ -20,6 +20,10 @@ _Stuff that is not important and just nice haves_
 - [ ] Add alert when there is still Excel files in processing
 - [ ] Consider using Mongo to store the CSV files (write a POC that replaces the files with Mongo DB)
 
+## 04/16/2025
+
+- [x] Adds Report code to the repo. Allows me to version control the repo
+
 ## 04/13/2025
 
 - [x] Add Sections - Extract the names from the XSLX file. This will require some template changes. Make sure that the sections are tagged by ID so users can link then (or bookmark them)
