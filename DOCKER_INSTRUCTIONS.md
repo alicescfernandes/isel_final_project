@@ -2,8 +2,16 @@
 
 ### Start up Dev Environment
 
+### First-Time Run
+
 ```
 docker-compose up --build
+```
+
+### Running the dev env
+
+```
+docker-compose up 
 ```
 
 ### Clear the Dev Enviroment

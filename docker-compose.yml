@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   web:
     build: ./backend
@@ -12,7 +10,7 @@ services:
       - ./infra/.env.dev
     depends_on:
       - postgres
-#      - mongo
+      - mongo
 
   postgres:
     env_file:
@@ -24,15 +22,15 @@ services:
     ports:
       - 5432:5432
 
-#  mongo:
-#    image: mongo:6
-#    env_file:
-#    - ./infra/.env.dev
-#    restart: always
-#    volumes:
-#      - mongo_data:/data/db
-#    ports:
-#      - 27017:27017
+  mongo:
+    image: mongo:6
+    env_file:
+    - ./infra/.env.dev
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
 
 volumes:
   postgres_data:
