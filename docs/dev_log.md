@@ -10,19 +10,31 @@ _Stuff that is not important and just nice haves_
 - [ ] Use Axios instead of fetch
 - [ ] Adds preload tags for faster loading of scripts
 - [ ] Check if the flowbite JS file can be imported from node_modules
+- [ ] Django DRF Caching (either Redis or Memcached)
+- [ ] Hide Sections when using mobile
+- [ ] Create a "change password page", check if django is able to send emails
 
 ## TODO
 
-- [ ] Django DRF Caching (either Redis or Memcached)
-- [ ] When deleting an excel, update the active CSV's to a previous version, the most recent one created
 - [ ] Add alert when there is still Excel files in processing
-- [ ] Add empty state message when no files are returned
-- [ ] Hide Sections when using mobile
-- [ ] Remove dark mode from mobile menu
-- [ ] Consider using Mongo to store the CSV files (write a POC that replaces the files with Mongo DB)
+- [ ] Loading from an # breaks the charts (<http://localhost:8000/#section-balanced-scorecard>)
+
+## 04/18/2025
+
+- [ ] Add a user reference to all models
+- [ ] Read current user and grab the instances that current user created
+- [ ] Create login page and add the username to the navbar
+- [ ] Create the logout page
+- [ ] Create the registration page
 
 ## 04/17/2025
 
+- [x] Add empty state message when no files are returned
+- [x] Remove dark mode from mobile menu
+- [x] Fix styling bugs (modal overlay and input) on the new quarter modal
+- [x] Cleans up more tailwind classes
+- [x] Check mime type of file, to avoid fake xlsx uploads
+- [x] When deleting an excel, update the active CSV's to a previous version
 - [x] Consider using ~Mongo~ PostgresSQL to store the CSV files (write a POC that replaces the files with ~MongoDB~ PostgresSQL)
 
 ## 04/16/2025
