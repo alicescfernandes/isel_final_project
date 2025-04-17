@@ -3,7 +3,7 @@ import uuid
 import pandas as pd
 from django.db import models, transaction
 from django.conf import settings
-from .utils.data_processing import run_pipeline_for_sheet, extract_section_name, convert_df_to_json
+from .utils.data_processing import run_pipeline_for_sheet, extract_section_name, convert_df_to_json, parse_sheet
 
 def user_quarter_upload_path(instance, filename):
     instance.section_name = extract_section_name(filename)
@@ -37,18 +37,16 @@ class ExcelFile(models.Model):
         ExcelFile.objects.filter(pk=self.pk).update(is_processed=False)
 
         xlsx_path = self.file.path
-        output_dir = os.path.join(settings.MEDIA_ROOT, 'uploads', str(self.uuid))
-        os.makedirs(output_dir, exist_ok=True)
 
         try:
             xls = pd.ExcelFile(xlsx_path)
 
             for sheet_name in xls.sheet_names:
-                df_raw = xls.parse(sheet_name, header=None)
+                df_raw = parse_sheet(xls, sheet_name)
                 if df_raw.empty:
                     continue
 
-                processed_data_frame, sheet_slug, sheet_title  = run_pipeline_for_sheet(xls, sheet_name)
+                processed_data_frame, sheet_slug, sheet_title  = run_pipeline_for_sheet(df_raw, sheet_name)
 
                 # Get the column order first, this will be saved in a specific field
                 columns = processed_data_frame.columns.tolist()
@@ -68,7 +66,7 @@ class ExcelFile(models.Model):
                     quarter_uuid=self.quarter.uuid,
                     data=data_json,
                     is_current=True,
-                    column_order=columns,  # novo campo no modelo (JSONField ou ArrayField)
+                    column_order=columns, 
                 )
         
             # Do not "save" itself, instead update just this field. Calling .save() causes a recursion
@@ -120,7 +118,7 @@ class CSVData(models.Model):
     sheet_name_pretty = models.CharField(max_length=255)
     # Sheet slug is a slug-like string derived from the sheet title, keeping in mind that the user won't change the sheet title, it groups the data into common identifiers
     sheet_name_slug = models.CharField(max_length=255)
-    quarter_uuid = models.UUIDField(null=True, editable=False)
+    quarter_uuid = models.UUIDField(null=True, editable=False) # might be useful to remove the quarter_uuid and use the relations instead
     is_current = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     data = models.JSONField(default=list)

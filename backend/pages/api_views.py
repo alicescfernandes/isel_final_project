@@ -63,7 +63,7 @@ class ChartDataAPIView(APIView):
         try:
             df = pd.DataFrame(csv_data.data)
             df = df[csv_data.column_order] 
-            print(df)
+
             if(type == "simple"):
                 chart_response = process_simple_chart(df, chart_meta,csv_data.sheet_name_pretty, filter)
                 return Response(quarter_data | chart_response)
