@@ -4,30 +4,18 @@ import re
 from .chart_classification import COLUMNS_TO_REMOVE, ROWS_TO_REMOVE
 import inflection
 
+def convert_df_to_json(df):
 
-import pandas as pd
-import numpy as np
+    df_clean = df.copy()
 
-def clean_dataframe_for_json(json_data):
+    for col in df_clean.columns:
+        df_clean[col] = pd.to_numeric(df_clean[col], errors='ignore')
 
-    # 1. Preservar a ordem original das colunas (a partir do primeiro dicionário)
-    columns_order = list(json_data[0].keys())
+    # Round the floats to 5 digits 
+    numeric_cols = df_clean.select_dtypes(include=['float']).columns
+    df_clean[numeric_cols] = df_clean[numeric_cols].round(5)
 
-    # 2. Criar o DataFrame com a ordem original
-    df = pd.DataFrame(json_data)[columns_order]
-
-    # 3. Tentar converter colunas para float (onde fizer sentido)
-    for col in df.columns:
-        df[col] = pd.to_numeric(df[col], errors='ignore')
-
-    # 4. Arredondar colunas numéricas
-    numeric_cols = df.select_dtypes(include=['float', 'int']).columns
-    df[numeric_cols] = df[numeric_cols].round(4)
-
-
-    return df.to_dict(orient='records')
-
-
+    return df_clean.to_dict(orient='records')
 
 def extract_section_name(file_name):
     # Remove a extensão
@@ -36,18 +24,18 @@ def extract_section_name(file_name):
     # Substituir underscores e hífens por espaços
     name = re.sub(r'[_\-]', ' ', name)
 
-    # Remover padrões tipo "Q2", "2023", "v1", etc.
+    # Remover texto como "Q2", "2023", "v1", etc.
     name = re.sub(r'\b(Q\d+|[12][0-9]{3}|v\d+)\b', '', name, flags=re.IGNORECASE)
 
     # Normalizar múltiplos espaços
     name = re.sub(r'\s+', ' ', name).strip()
 
-    # Detetar se está em camelCase ou snake_case e transformar
+    # Transformar em title case
     name = inflection.titleize(name)
 
     return name
 
-def clean_title(text):
+def clean_sheet_title(text):
     return re.sub(r"(the\s*)?for Quarter \d+", "", text, flags=re.IGNORECASE).strip()
 
 def remove_line_breaks_from_data(df):
@@ -158,7 +146,7 @@ def extract_sheet_title(df_raw):
     Returns:
         str: The title extracted from cell (0, 0).
     """
-    return clean_title(str(df_raw.iloc[0, 0]).strip())
+    return clean_sheet_title(str(df_raw.iloc[0, 0]).strip())
 
 def extract_column_names(df_raw,sheet_title):
     """
@@ -195,26 +183,7 @@ def extract_clean_data(df_raw, column_names):
     df.columns = column_names
     return df
 
-def export_csv_with_title(df, title, output_dir, sheet_name):
-    """
-    Export a DataFrame to CSV using a sanitized filename.
-
-    Parameters:
-        df (pd.DataFrame): The cleaned dataset to export.
-        title (str): The title extracted from the sheet (not used in filename).
-        output_dir (str): Path to the directory where the CSV should be saved.
-        sheet_name (str): Original sheet name, used for filename generation.
-
-    Returns:
-        str: The generated CSV filename.
-    """
-    filename = f"{sanitize_sheet_name(sheet_name)}.csv"
-    path = os.path.join(output_dir, filename)
-    with open(path, mode='w', encoding='utf-8', newline='') as f:
-        df.to_csv(f, index=False)
-    return filename
-
-def run_pipeline_for_sheet(xls, sheet_name, output_dir):
+def run_pipeline_for_sheet(xls, sheet_name):
     """
     Full processing pipeline for a single Excel sheet.
 

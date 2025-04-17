@@ -23,7 +23,7 @@ class QuarterAdmin(admin.ModelAdmin):
 
 @admin.register(CSVData)
 class CSVDataAdmin(admin.ModelAdmin):
-    list_display = ('sheet_name_slug','sheet_name_pretty','is_current','data','quarter_file', 'quarter_uuid',)
+    list_display = ('sheet_name_slug','sheet_name_pretty','is_current','data','quarter_file', 'quarter_uuid','column_order')
 
 @admin.register(ExcelFile)
 class ExcelFileAdmin(admin.ModelAdmin):
