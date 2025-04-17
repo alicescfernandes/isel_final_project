@@ -13,10 +13,8 @@ _Stuff that is not important and just nice haves_
 
 ## TODO
 
-- [ ] Fork the branch for the FEIM presentation and freeze it
 - [ ] Django DRF Caching (either Redis or Memcached)
-- [ ] Setup Postgres (Only during using auth)
-- [ ] When deleting an excell, update the active CSV's to a previous version
+- [ ] When deleting an excel, update the active CSV's to a previous version, the most recent one created
 - [ ] Add alert when there is still Excel files in processing
 
 ## 04/17/2025
@@ -28,6 +26,10 @@ _Stuff that is not important and just nice haves_
 - [x] Adds Report code to the repo. Allows me to version control the repo
 - [x] Adds build system for report
 - [x] Setup github workflows to compile the report on every commit to master
+- [x] Fork the branch for the FEIM presentation and freeze it
+- [x] Setup Postgres (Only during using auth) (deployment-setup branch)
+- [x] Setup docker compose yml for dev
+- [x] Skeleton docker-compose yml for prod
 
 ## 04/13/2025
 

@@ -3,9 +3,7 @@ import uuid
 import pandas as pd
 from django.db import models
 from django.conf import settings
-from django.core.files.storage import default_storage
 from .utils.data_processing import run_pipeline_for_sheet, extract_section_name, convert_df_to_json
-from django.db import models
 
 def user_quarter_upload_path(instance, filename):
     instance.section_name = extract_section_name(filename)
