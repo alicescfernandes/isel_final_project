@@ -104,14 +104,14 @@ DATABASES = {
 }
 
 # MongoDB settings for MongoEngine (custom, not under DATABASES)
-MONGODB_SETTINGS = {
-    'db': os.getenv('MONGO_DB_NAME'),
-    'host': os.getenv('MONGO_HOST'),
-    'port': int(os.getenv('MONGO_PORT')),
-    'username': os.getenv('MONGO_USER'),
-    'password': os.getenv('MONGO_PASSWORD'),
-    'authentication_source': 'admin',
-}
+# MONGODB_SETTINGS = {
+#     'db': os.getenv('MONGO_DB_NAME'),
+#     'host': os.getenv('MONGO_HOST'),
+#     'port': int(os.getenv('MONGO_PORT')),
+#     'username': os.getenv('MONGO_USER'),
+#     'password': os.getenv('MONGO_PASSWORD'),
+#     'authentication_source': 'admin',
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
