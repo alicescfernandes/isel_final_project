@@ -4,6 +4,31 @@ import re
 from .chart_classification import COLUMNS_TO_REMOVE, ROWS_TO_REMOVE
 import inflection
 
+
+import pandas as pd
+import numpy as np
+
+def clean_dataframe_for_json(json_data):
+
+    # 1. Preservar a ordem original das colunas (a partir do primeiro dicionário)
+    columns_order = list(json_data[0].keys())
+
+    # 2. Criar o DataFrame com a ordem original
+    df = pd.DataFrame(json_data)[columns_order]
+
+    # 3. Tentar converter colunas para float (onde fizer sentido)
+    for col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors='ignore')
+
+    # 4. Arredondar colunas numéricas
+    numeric_cols = df.select_dtypes(include=['float', 'int']).columns
+    df[numeric_cols] = df[numeric_cols].round(4)
+
+
+    return df.to_dict(orient='records')
+
+
+
 def extract_section_name(file_name):
     # Remove a extensão
     name = os.path.splitext(file_name)[0]
@@ -121,7 +146,7 @@ def parse_sheet(xls, sheet_name):
     Returns:
         pd.DataFrame: Raw data from the sheet without headers.
     """
-    return xls.parse(sheet_name, header=None)
+    return xls.parse(sheet_name, header=None, dtype=str)
 
 def extract_sheet_title(df_raw):
     """

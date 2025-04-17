@@ -6,7 +6,7 @@ from .models import Quarter, ExcelFile, CSVData
 class CSVDataInline(admin.TabularInline):
     model = CSVData
     extra = 0
-    list_display = ('csv_path')
+    list_display = ('data')
 
 
 class ExcelFileInline(admin.TabularInline):
@@ -22,8 +22,8 @@ class QuarterAdmin(admin.ModelAdmin):
     inlines = [ExcelFileInline]
 
 @admin.register(CSVData)
-class QuarterCSVAdmin(admin.ModelAdmin):
-    list_display = ('sheet_name_slug','sheet_name','is_current','csv_path','quarter_file', 'quarter_uuid',)
+class CSVDataAdmin(admin.ModelAdmin):
+    list_display = ('sheet_name_slug','sheet_name_pretty','is_current','data','quarter_file', 'quarter_uuid',)
 
 @admin.register(ExcelFile)
 class ExcelFileAdmin(admin.ModelAdmin):

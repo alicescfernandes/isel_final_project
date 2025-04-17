@@ -57,21 +57,20 @@ class ChartDataAPIView(APIView):
 
         type = chart_meta["type"]
 
-        csv_file = get_active_csv_for_slug(quarter_number, slug)
-    
         quarter_data = get_quarter_navigation_object(quarter_number, slug) 
+        csv_data = get_active_csv_for_slug(quarter_number, slug)
             
         try:
-            df = pd.read_csv(csv_file.csv_path)
+            df = pd.DataFrame(csv_data.data)
             
             if(type == "simple"):
-                chart_response = process_simple_chart(df, chart_meta,csv_file.sheet_name, filter)
+                chart_response = process_simple_chart(df, chart_meta,csv_data.sheet_name_pretty, filter)
                 return Response(quarter_data | chart_response)
         
             if(type=="double"):
-                chart_response = process_double_chart(df, chart_meta,csv_file.sheet_name, filter)
+                chart_response = process_double_chart(df, chart_meta,csv_data.sheet_name_pretty, filter)
                 return Response(quarter_data | chart_response)
             
         except Exception as e:
-            empty_response = return_empty_response(quarter_number, slug, e, csv_file.sheet_name)
+            empty_response = return_empty_response(quarter_number, slug, e, csv_data.sheet_name_pretty)
             return Response(quarter_data | empty_response )

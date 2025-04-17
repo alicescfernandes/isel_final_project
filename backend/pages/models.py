@@ -1,13 +1,11 @@
-import re
 import os
-import inflection
 import uuid
 import pandas as pd
 from django.db import models
 from django.conf import settings
 from django.core.files.storage import default_storage
-from .utils.data_processing import run_pipeline_for_sheet, extract_section_name
-
+from .utils.data_processing import run_pipeline_for_sheet, extract_section_name, clean_dataframe_for_json
+from django.db import models
 
 def user_quarter_upload_path(instance, filename):
     instance.section_name = extract_section_name(filename)
@@ -41,7 +39,6 @@ class ExcelFile(models.Model):
         ExcelFile.objects.filter(pk=self.pk).update(is_processed=False)
 
         xlsx_path = self.file.path
-        print("Processing: " + xlsx_path)
         output_dir = os.path.join(settings.MEDIA_ROOT, 'uploads', str(self.uuid))
         os.makedirs(output_dir, exist_ok=True)
 
@@ -54,13 +51,9 @@ class ExcelFile(models.Model):
                     continue
 
                 processed_data_frame, clean_sheet_name, sheet_title  = run_pipeline_for_sheet(xls, sheet_name, output_dir)
-                csv_path = os.path.join(output_dir, f"{clean_sheet_name}.csv")
-                
-                # Let django deal with the duplicated files on its own. We will store that path on the model and use that to access it
-                available_path = default_storage.get_available_name(csv_path)
-                with open(available_path, mode='w', encoding='utf-8', newline='') as f:
-                    processed_data_frame.to_csv(f, index=False)
-                
+                print(processed_data_frame)
+                data_json = clean_dataframe_for_json(processed_data_frame)
+                print(data_json)
                 # Check for other CSV's and mark them as not active
                 CSVData.objects.filter(
                     quarter_file__quarter=self.quarter,
@@ -70,15 +63,14 @@ class ExcelFile(models.Model):
 
                 CSVData.objects.create(
                     quarter_file=self,
-                    sheet_name=sheet_title,
+                    sheet_name_pretty=sheet_title,
                     sheet_name_slug=clean_sheet_name,
                     quarter_uuid=self.quarter.uuid,
-                    csv_path=available_path,
+                    data=data_json,
                     is_current=True
                 )
         
             # Do not "save" itself, instead update just this field. Calling .save() causes a recursion
-            print("setting is processed")
             ExcelFile.objects.filter(pk=self.pk).update(is_processed=True)
 
         except Exception as e:
@@ -86,13 +78,13 @@ class ExcelFile(models.Model):
 
 class CSVData(models.Model):
     quarter_file = models.ForeignKey("ExcelFile", on_delete=models.CASCADE, related_name="csvs")
-    sheet_name = models.CharField(max_length=255)
+    sheet_name_pretty = models.CharField(max_length=255)
     sheet_name_slug = models.CharField(max_length=255)
-    csv_path = models.FilePathField(path=settings.MEDIA_ROOT, max_length=500)
     quarter_uuid = models.UUIDField(null=True, editable=False)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     is_current = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    data = models.JSONField(default=list)
 
     def __str__(self):
-        return f"{self.sheet_name} ({self.uuid})"
+        return f"{self.sheet_name_pretty} ({self.uuid})"
