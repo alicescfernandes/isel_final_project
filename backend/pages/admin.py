@@ -6,7 +6,7 @@ from .models import Quarter, ExcelFile, CSVData
 class CSVDataInline(admin.TabularInline):
     model = CSVData
     extra = 0
-    list_display = ('data')
+    list_display = ('data',)
 
 
 class ExcelFileInline(admin.TabularInline):

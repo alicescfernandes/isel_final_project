@@ -188,11 +188,11 @@ def run_pipeline_for_sheet(df_in, sheet_name):
     Full processing pipeline for a single Excel sheet.
 
     Parameters:
-        xls (pd.DataFrame): Dataframe from an excel sheet.
+        df_in (pd.DataFrame): Dataframe from an excel sheet.
         sheet_name (str): Name of the sheet to process.
 
     Returns:
-        tuple[str, str, str]: A tuple containing the parsed dataframe, sheet slug and sheet title.
+        tuple[pd.DataFrame, str, str]: A tuple containing the parsed dataframe, sheet slug and sheet title.
     """
     df_raw = remove_line_breaks_from_data(df_in)
     sheet_title = extract_sheet_title(df_raw)
@@ -203,3 +203,4 @@ def run_pipeline_for_sheet(df_in, sheet_name):
     df_clean = remove_rows(df_clean)
     sheet_slug = slugify_sheet_name(sheet_name)
     return (df_clean,  sheet_slug, sheet_title)
+
