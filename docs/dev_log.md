@@ -16,6 +16,10 @@ _Stuff that is not important and just nice haves_
 - [ ] Django DRF Caching (either Redis or Memcached)
 - [ ] When deleting an excel, update the active CSV's to a previous version, the most recent one created
 - [ ] Add alert when there is still Excel files in processing
+- [ ] Add empty state message when no files are returned
+- [ ] Hide Sections when using mobile
+- [ ] Remove dark mode from mobile menu
+- [ ] Consider using Mongo to store the CSV files (write a POC that replaces the files with Mongo DB)
 
 ## 04/17/2025
 
