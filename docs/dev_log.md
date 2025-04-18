@@ -13,6 +13,7 @@ _Stuff that is not important and just nice haves_
 - [ ] Django DRF Caching (either Redis or Memcached)
 - [ ] Hide Sections when using mobile
 - [ ] Create a "change password page", check if django is able to send emails
+- [ ] Display username on the navbar
 
 ## TODO
 
