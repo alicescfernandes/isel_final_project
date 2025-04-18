@@ -27,6 +27,8 @@ _Stuff that is not important and just nice haves_
 - [x] Create login page and add the username to the navbar
 - [x] Create the logout page
 - [x] Create the registration page
+- [x] Cleans up even more tailwind classes
+- [x] Extract JS from the apps
 
 ## 04/17/2025
 

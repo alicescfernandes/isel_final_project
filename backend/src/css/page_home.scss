@@ -116,6 +116,18 @@ h2 {
         svg{
             @apply h-12 mb-3 text-gray-400
         }
+
+        h5{
+            @apply mb-1 text-xl font-semibold text-gray-700
+        }
+
+        p{
+            @apply mb-4 text-sm text-gray-500
+        }
+
+        a{
+            @apply text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2
+        }
     }
 }
 
