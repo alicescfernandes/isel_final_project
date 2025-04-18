@@ -21,7 +21,7 @@
   </head>
 
   <body>
-    {% if request.path != '/login/' %}
+    {% if request.path != '/login/' and request.path != '/register/' %}
       {% include 'pages/navigation.html' %}
     {% endif %}
 

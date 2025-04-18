@@ -26,7 +26,7 @@ _Stuff that is not important and just nice haves_
 - [x] Read current user and grab the instances that current user created
 - [x] Create login page and add the username to the navbar
 - [x] Create the logout page
-- [ ] Create the registration page
+- [x] Create the registration page
 
 ## 04/17/2025
 
