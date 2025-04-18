@@ -21,7 +21,7 @@ class Quarter(models.Model):
 
     class Meta:
         ordering = ['-number']
-        unique_together = ('user', 'number')  # 🔹 agora o número é único por utilizador
+        unique_together = ('user', 'number')
 
     def __str__(self):
         return f"Q{self.number}"

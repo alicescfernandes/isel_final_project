@@ -1,7 +1,6 @@
 import os
 import openpyxl
 from django.core.exceptions import ValidationError
-from django.shortcuts import render
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -23,10 +22,9 @@ def is_valid_xlsx(file):
         raise ValidationError("Tipo MIME inválido para ficheiro .xlsx.")
 
     try:
-        # openpyxl precisa do ficheiro 'rebobinado'
         file.seek(0)
         openpyxl.load_workbook(file)
-        file.seek(0)  # rebobina novamente para salvar mais à frente
+        file.seek(0)
     except Exception as e:
         raise ValidationError("Conteúdo inválido: o ficheiro não é um Excel válido.") from e
     
@@ -45,10 +43,8 @@ def home(request):
     })
     
     last_quarter = quarters[0]
-        
-    # Use query params here with default values
-    query_quarter = request.GET.get("q",last_quarter.number)
-    quarter = quarters.get(number=int(query_quarter))
+
+    quarter = quarters.get(number=int(last_quarter))
     
     latest_csvs = (
         CSVData.objects
@@ -64,7 +60,6 @@ def home(request):
 
     # Populate this object
     sections = {}
-    
     
     for csv in latest_csvs:
         slug = csv.sheet_name_slug
