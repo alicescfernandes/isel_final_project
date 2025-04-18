@@ -3,7 +3,6 @@ from django.shortcuts import render
 from .models import Quarter, ExcelFile, CSVData
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import QuarterForm
-from collections import defaultdict
 from django.core.exceptions import ValidationError
 import openpyxl
 # Get the path to the xlsx directory
@@ -28,7 +27,7 @@ def is_valid_xlsx(file):
 
 def home(request):
     # Prepare default case
-    quarters = Quarter.objects.all()
+    quarters = Quarter.objects.filter(user=request.user)
     if(len(quarters) <= 0):
         return render(request, 'pages/home.html', {
         "app_context":{
@@ -43,13 +42,11 @@ def home(request):
         
     # Use query params here with default values
     query_quarter = request.GET.get("q",last_quarter.number)
-    quarter = Quarter.objects.get(number=int(query_quarter))
-
-    unique_slugs = list(CSVData.objects.values_list('sheet_name_slug', flat=True).distinct())    
-    print(unique_slugs)
+    quarter = quarters.get(number=int(query_quarter))
     
     latest_csvs = (
         CSVData.objects
+        .filter(user=request.user)
         .select_related('quarter_file__quarter')
         .filter(is_current=True) 
         .order_by('sheet_name_slug', '-quarter_file__quarter__number')
@@ -94,13 +91,15 @@ def home(request):
     })
 
 def manage_quarters(request):
-    quarters = Quarter.objects.all()
+    quarters = Quarter.objects.filter(user=request.user)
     form = QuarterForm()
 
     if request.method == 'POST':
         form = QuarterForm(request.POST)
         if form.is_valid():
-            form.save()
+            quarter = form.save(commit=False)
+            quarter.user = request.user 
+            quarter.save()
             return redirect('manage_quarters')
 
     return render(request, 'pages/manage_quarters.html', {
@@ -109,24 +108,23 @@ def manage_quarters(request):
     })
 
 def delete_quarter(request, uuid):
-    quarter = get_object_or_404(Quarter, uuid=uuid)
+    quarter = get_object_or_404(Quarter, uuid=uuid, user=request.user)
     quarter.delete()
     return redirect('manage_quarters')
-
 
 def delete_file(request, uuid):
-    quarter = get_object_or_404(ExcelFile, uuid=uuid)
+    quarter = get_object_or_404(ExcelFile, uuid=uuid, user=request.user)
     quarter.delete()
     return redirect('manage_quarters')
 
-
 def edit_quarter(request, uuid):
-    quarter = get_object_or_404(Quarter, uuid=uuid)
+    quarter = get_object_or_404(Quarter, uuid=uuid, user=request.user)
 
     if request.method == 'POST':
         new_number = request.POST.get('number')
         if new_number:
             quarter.number = new_number
+            quarter.user = request.user 
             quarter.save()
 
         files = request.FILES.getlist('files')
@@ -135,7 +133,8 @@ def edit_quarter(request, uuid):
                 is_valid_xlsx(f)
                 ExcelFile.objects.create(
                     quarter=quarter,
-                    file=f
+                    file=f,
+                    user=request.user
                 )
             except ValidationError as e:
                 # Podes fazer log, mostrar erro, ou armazenar numa lista para mostrar mais tarde
