@@ -1,10 +1,16 @@
 import os
-from django.shortcuts import render
-from .models import Quarter, ExcelFile, CSVData
-from django.shortcuts import render, redirect, get_object_or_404
-from .forms import QuarterForm
-from django.core.exceptions import ValidationError
 import openpyxl
+from django.core.exceptions import ValidationError
+from django.shortcuts import render
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from .models import Quarter, ExcelFile, CSVData
+from .forms import QuarterForm
+
 # Get the path to the xlsx directory
 current_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 xlsx_dir = os.path.join(current_dir, 'xlsx')
@@ -24,7 +30,7 @@ def is_valid_xlsx(file):
     except Exception as e:
         raise ValidationError("Conteúdo inválido: o ficheiro não é um Excel válido.") from e
     
-
+@login_required
 def home(request):
     # Prepare default case
     quarters = Quarter.objects.filter(user=request.user)
@@ -90,6 +96,7 @@ def home(request):
         "chart_slugs": chart_slugs
     })
 
+@login_required
 def manage_quarters(request):
     quarters = Quarter.objects.filter(user=request.user)
     form = QuarterForm()
@@ -107,16 +114,19 @@ def manage_quarters(request):
         'quarters': quarters,
     })
 
+@login_required
 def delete_quarter(request, uuid):
     quarter = get_object_or_404(Quarter, uuid=uuid, user=request.user)
     quarter.delete()
     return redirect('manage_quarters')
 
+@login_required
 def delete_file(request, uuid):
     quarter = get_object_or_404(ExcelFile, uuid=uuid, user=request.user)
     quarter.delete()
     return redirect('manage_quarters')
 
+@login_required
 def edit_quarter(request, uuid):
     quarter = get_object_or_404(Quarter, uuid=uuid, user=request.user)
 
@@ -142,3 +152,23 @@ def edit_quarter(request, uuid):
                 continue
 
     return redirect('manage_quarters')
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # ou outro destino
+
+class CustomLoginView(LoginView):
+    template_name = "pages/login.html"
+    redirect_authenticated_user = True 
+    next_page = reverse_lazy("home") 
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'pages/register.html', {'form': form})

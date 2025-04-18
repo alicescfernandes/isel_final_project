@@ -24,8 +24,8 @@ _Stuff that is not important and just nice haves_
 
 - [x] Add a user reference to all models
 - [x] Read current user and grab the instances that current user created
-- [ ] Create login page and add the username to the navbar
-- [ ] Create the logout page
+- [x] Create login page and add the username to the navbar
+- [x] Create the logout page
 - [ ] Create the registration page
 
 ## 04/17/2025
