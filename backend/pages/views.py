@@ -44,7 +44,7 @@ def home(request):
     
     last_quarter = quarters[0]
 
-    quarter = quarters.get(number=int(last_quarter))
+    quarter = quarters.get(number=int(last_quarter.number))
     
     latest_csvs = (
         CSVData.objects
