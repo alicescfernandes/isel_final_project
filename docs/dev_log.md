@@ -14,6 +14,7 @@ _Stuff that is not important and just nice haves_
 - [ ] Hide Sections when using mobile
 - [ ] Create a "change password page", check if django is able to send emails
 - [ ] Display username on the navbar
+- [ ] Add a zoom feature on the charts, that would open a popup with the chart that was zoomed in
 
 ## TODO
 
