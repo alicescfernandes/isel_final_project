@@ -138,13 +138,13 @@ Com os casos de utilização estabelecidos, foram identificados então os requis
 \section{Fundamentos}
 \label{sec:fundamentos}
 
-A Marketplace Simulations  é uma empresa que desenvolve plataformas de simulação para fins educativos, ou seja, ferramentas que colocam os estudantes numa espécie de "jogo" onde cada equipa gere a sua própria empresa e compete com os colegas em cenários de mercado realistas. Isto acaba por funcionar como uma espécie de laboratório virtual, usado em faculdades de gestão e economia, como no \gls{iscal}, onde os alunos aplicam os conceitos aprendidos numa experiência em contexto educativo.
+A Marketplace Simulations  é uma empresa que desenvolve plataformas de simulação para fins educativos, ou seja, ferramentas que colocam os estudantes numa espécie de "jogo" onde cada equipa gere a sua própria empresa e compete com os colegas em cenários simulados. Isto caba por funcionar como uma espécie de laboratório virtual, que pode ser usado no ensino superior, como no \gls{iscal}, onde os alunos aplicam os conceitos aprendidos numa experiência em contexto educativo.
 
-No caso concreto do nosso projeto, o módulo em questão chama-se \textit{International Corporate Management} (referida doravante como plataforma de simulação), e é utilizado tipicamente no último semestre, na cadeira Projeto de Simulação em Negócios Internacionais  da Licenciatura de Comércio e Negócios Internacionais. Aqui, cada grupo de alunos representa uma empresa que tem de atuar num mercado competitivo — tomando decisões sobre posicionamento de produto, investimento, preços, distribuição, contratação de equipas e por aí fora. Essas decisões são processadas pela plataforma, que simula o comportamento do mercado com base num algoritmo interno. 
+No caso concreto do nosso projeto, a aplicação em questão chama-se International Corporate Management (referida doravante como plataforma de simulação), e é utilizado tipicamente no último semestre, na cadeira Projeto de Simulação em Negócios Internacionais  da Licenciatura de Comércio e Negócios Internacionais. Aqui, cada grupo de alunos representa uma empresa que tem de atuar num mercado internacional, tomando decisões sobre o posicionamento de produto, investimento, preços, distribuição, entre outras opções. Essas decisões são processadas pela plataforma, que simula o comportamento do mercado com base num algoritmo interno. 
 
-No final de cada ronda (ou trimestre), os dados são disponibilizados na plataforma nas várias secções disponiveis numa visualização tabular, o que, na prática, faz com que os alunos saltem entre secções, fazer gráficos à mão e tirar conclusões com base em tabelas.
+A cadência da simulação é dada por quarters, que representam uma semana simulada, E final de cada quarter, os dados são disponibilizados na plataforma nas várias secções disponiveis, na maioria das secções em tabelas, o que faz com que os alunos saltem entre secções, ou tenham de fazer gráficos à mão ou em ultimo caso, extrair a informação da plataforma.
 
-Em termos de estrutura temporal, a simulação decorre ao longo de vários períodos, normalmente designados por quarters. Cada um destes quarters representa uma fase do ciclo de vida da empresa simulada — incluindo decisões estratégicas, execução e análise de resultados. Ou seja, no final de cada trimestre, os alunos recebem os dados com os resultados das decisões anteriores, o que obriga a uma análise comparativa constante entre períodos. É precisamente esta lógica iterativa — decidir, analisar, ajustar, repetir — que dá ritmo à simulação e aproxima o exercício de uma situação real de gestão empresarial.
+Em termos de estrutura temporal, a simulação decorre ao longo de vários períodos, normalmente designados por quarters. Cada um destes quarters representa uma fase do ciclo de vida da empresa simulada — incluindo decisões estratégicas, execução e análise de resultados. Ou seja, no final de cada quarter, os alunos recebem os dados com os resultados das decisões anteriores, o que obriga a uma análise comparativa constante entre períodos. É precisamente esta lógica iterativa — decidir, analisar, ajustar, repetir — que dá ritmo à simulação e aproxima o exercício de uma situação real de gestão empresarial.
 
 
 %%________________________________________________________________________
@@ -170,39 +170,41 @@ A abordagem que acabamos por usar foi os alunos exportam manualmente os dados di
 
 Para isso, procurámos que a nossa aplicação refletisse a estrutura da própria simulação. Como tal, os dados são organizados por quarters, como acontece na plataforma de simulação e permitir o carregamento dos dados exportados. Estes ficheiros são depois processados o que nos permite trabalhar com dados mais consistentes. 
 
-Esta estrutura base implica a existência de três entidades principais na nossa aplicação (que iremos descrever a seguir) e cuja interação define o funcionamento base do sistema.
+Esta estrutura base implica a existência de três entidades principais na nossa aplicação (que iremos descrever nos capítulos seguintes) e cuja interação define o funcionamento do sistema.
 
 
 \subsubsection{\textit{Quarters}}
-Os quarters funcionam como \textit{buckets} lógicos para organizar os ficheiros carregados pelos utilizadores. Cada utilizador pode criar múltiplos quarters, identificados de forma única por um número. Este número serve tambem de identificador, sendo que não é possível ter dois quarters identificados como 1 para cada utilizador.
+Os quarters funcionam como \textit{buckets} lógicos para organizar os ficheiros carregados pelos utilizadores. Cada utilizador pode criar múltiplos quarters, identificados de forma única por um número.
 
-A nível de implementação, cada quarter está associado unicamente a um utilizador e é identificado por um UUID (gerado automaticamente pelo \textit{Django}), que garante que o quarter seja único.
+O propósito em incluir este conceito é para que a aplicação consiga associar os dados extraidos dos ficheiros carregados ao quarter correspondente sem depender de manipulações do nome do ficheiro carregado, e desde modo assegurar que a plataforma consegue identificar corretamente os quarters. A desvantagem é que requer input do utilizador para que seja criado ou atribuido o quarter correto. De modo a minimizar a fricção causada por esta funcionalidade, tentamos que experiência de utilização fosse centrada no carregamento de ficheiros, limitando os quarters a um campo obrigatório no formulário de upload.
 
 \subsubsection{Ficheiros}
 
-Os ficheiros são inicialmente carregados no formato \gls{xlsx}, contendo uma ou várias folhas de cálculo. Cada folha é tratada como uma entidade individual e transformada para \gls{csv}. O ficheiro \gls{xlsx} é guardado como referência, mas não é diretamente utilizado para visualização.
+Os ficheiros são inicialmente carregados no formato \gls{xlsx} (que é o formato que a plataforma de simulação exporta), contendo uma ou várias folhas de cálculo. Cada folha é tratada como uma entidade individual e os dados contidos nessa folha serão processados. O ficheiro \gls{xlsx} é guardado como referência, mas não é diretamente utilizado para visualização, ficando apenas como artefacto interno da aplicação.
 
-Este processo de conversão para \gls{csv} é acompanhado por uma \textit{pipeline} de normalização de dados, que limpa os dados (como por exemplo, remover quebras de linha, colunas sem representação, nomes inconsistentes) e aplica regras para que os gráficos possam ser gerados de forma consistente. Cada ficheiro \gls{csv} gerado é associado ao seu ficheiro \gls{xlsx} de origem, ao quarter correspondente, e o seu nome será baseado no nome da folha de onde foi extraído. Aos ficheiros \gls{csv} é também associado uma \textit{slug}, baseado também no nome, que identifica a informação que o \gls{csv} representa.
+Este processamento que é aplicado é uma \textit{pipeline} de transformação de dados (conhecido na industria como \gls{etl}), que limpa os dados (como por exemplo, remover quebras de linha, colunas sem representação, nomes inconsistentes) e aplica regras para que os gráficos possam ser gerados de forma consistente. Os dados resultantes desta transformação estão associados ao ficheiro \gls{xlsx} original, sendo até possivel reprocessar ficheiros de forma a recriar informação (esta funcionalidade não é disponibilizada aos utilizadores finais).
 
-A plataforma garante que só existe uma versão ativa de cada ficheiro por tipo — caso o utilizador carregue novamente um ficheiro com o mesmo nome lógico, o anterior será marcado como não ativo, evitando duplicações e garantindo que os gráficos usam apenas dados mais recentes.
+A plataforma garante que só existe uma versão ativa de cada ficheiro por tipo. Caso o utilizador carregue novamente um ficheiro com o mesmo nome, o anterior será marcado como não ativo, evitando duplicações e garantindo que os gráficos usam apenas dados mais recentes. 
+
+\subsubsection{\textit{Pipeline} de Transformação de Dados}
+
+Outro contributo diferenciador foi o desenvolvimento de uma \textit{pipeline} transformação de dados. O objetivo é garantir que os ficheiros carregados, que muitas vezes contêm nomes de colunas inconsistentes, quebras de linha, espaços em excesso ou colunas irrelevantes, sejam adaptados para serem visualizados. 
+
+Como podemos receber muitos ficheiros, a variabilidade entre os dados recebidos é muito alta, pelo que alguns dados passam por mais do que uma fase de transformação. Esta decisão foi tomada com base numa análise manual, em que identificámos possíveis fontes de dados que precisam de mais do que uma fase de transformação. As várias fases de transformação alteram os dados de modo a facilitar a representação visual dos mesmos e é um passo essencial no projeto, porque garante que a aplicação trabalha com formatos e regras conhecidas, e remove a variabilidade dos ficheiros importados.
+
+As fases de transformação irão ser descritas em mais detalhe nos capítulos seguintes, uma vez que a implementação destas pipeline estão relacionadas à tecnologia escolhida, mas o desenvolvimento desta \textit{pipeline} é um fator diferenciador deste projeto, uma vez que tem de lidar com dados que não estão estruturados de forma a facilitar representações visuais. 
+
+Este processo de transformação é semelhante aos processos \gls{etl} ainda que neste projeto tenha sido desenvolvido com uma escala menor.
 
 \subsubsection{Utilizadores}
 
 A plataforma foi desenhada para funcionar com utilizadores. Cada utilizador tem a sua conta, e pode criar quarters, carregar ou alterar ficheiros, e ver aos gráficos gerados a partir desses ficheiros.
 
-Cada utilizador tem acesso apenas aos seus próprios dados, garantindo o isolamento da informação. Esta separação é feita a nível da base de dados, através da associação de cada entidade ao utilizador que criou.
-
 Apesar da plataforma não suportar explicitamente equipas ou grupos, assume-se que alunos do mesmo grupo podem carregar ficheiros semelhantes, mas o sistema trata-os como ficheiros diferentes. Assim, evita-se a complexidade adicional de gerir permissões ou partilha de dados entre contas. Também se assume que as contas podem ser criadas ao nível do grupo, pelo que para a plataforma, é indiferente se a conta é individual ou partilhada entre membros desse grupo.
+
+Cada utilizador tem acesso apenas aos seus próprios dados, garantindo o isolamento da informação. Esta separação é feita a nível da base de dados, através da associação de cada entidade ao utilizador que criou.
 
 No futuro, pode ser considerada a funcionalidade de desativação automática de contas (por exemplo, após o final do semestre), mas para já o modelo é simples e robusto: conta individual, dados isolados, e controlo completo sobre os próprios uploads.
 
-\subsubsection{\textit{Pipeline} de Normalização de Dados}
 
-Outro contributo diferenciador foi o desenvolvimento de uma \textit{pipeline} modular de normalização de dados. O objetivo é garantir que os ficheiros carregados, que muitas vezes contêm nomes de colunas inconsistentes, quebras de linha, espaços em excesso ou colunas irrelevantes, sejam adaptados para serem visualizados. 
-
-Como podemos receber muitos ficheiros, a variabilidade entre os dados recebidos é muito alta, pelo que alguns dados passam por mais do que uma fase de normalização. Esta decisão foi tomada com base numa análise manual, em que identificámos possíveis fontes de dados que precisam de mais do que uma fase de normalização. As várias fases de normalização alteram os dados de modo a facilitar a representação visual dos mesmos e é um passo essencial no projeto, porque garante que a aplicação trabalha com formatos e regras conhecidas, e remove a variabilidade dos ficheiros importados.
-
-As fases de normalização irão ser descritas em mais detalhe nos capítulos seguintes, uma vez que a implementação destas pipeline estão relacionadas à tecnologia escolhida, mas o desenvolvimento desta \textit{pipeline} é um fator diferenciador deste projeto, uma vez que tem de lidar com dados que não estão estruturados de forma a facilitar representações visuais. 
-
-Este processo de normalização é semelhante aos processos \gls{etl} ainda que neste projeto tenha sido desenvolvido com uma escala menor.
 
