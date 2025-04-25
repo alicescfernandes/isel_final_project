@@ -138,14 +138,38 @@ Com os casos de utilização estabelecidos, foram identificados então os requis
 \section{Fundamentos}
 \label{sec:fundamentos}
 
-A Marketplace Simulations  é uma empresa que desenvolve plataformas de simulação para fins educativos, ou seja, ferramentas que colocam os estudantes numa espécie de "jogo" onde cada equipa gere a sua própria empresa e compete com os colegas em cenários simulados. Isto caba por funcionar como uma espécie de laboratório virtual, que pode ser usado no ensino superior, como no \gls{iscal}, onde os alunos aplicam os conceitos aprendidos numa experiência em contexto educativo.
 
-No caso concreto do nosso projeto, a aplicação em questão chama-se International Corporate Management (referida doravante como plataforma de simulação), e é utilizado tipicamente no último semestre, na cadeira Projeto de Simulação em Negócios Internacionais  da Licenciatura de Comércio e Negócios Internacionais. Aqui, cada grupo de alunos representa uma empresa que tem de atuar num mercado internacional, tomando decisões sobre o posicionamento de produto, investimento, preços, distribuição, entre outras opções. Essas decisões são processadas pela plataforma, que simula o comportamento do mercado com base num algoritmo interno. 
+\subsection{Marketplace Simulations}
+A Marketplace Simulations  é uma empresa que desenvolve plataformas de simulação para fins educativos, ou seja, ferramentas que colocam os estudantes numa espécie de jogo onde cada equipa gere a sua própria empresa e compete com os colegas em cenários simulados. Acaba então por funcionar como uma espécie de laboratório virtual que pode ser usado no ensino superior, como no \gls{iscal}, onde os alunos aplicam os conceitos aprendidos numa experiência em contexto educativo.
 
-A cadência da simulação é dada por quarters, que representam uma semana simulada, E final de cada quarter, os dados são disponibilizados na plataforma nas várias secções disponiveis, na maioria das secções em tabelas, o que faz com que os alunos saltem entre secções, ou tenham de fazer gráficos à mão ou em ultimo caso, extrair a informação da plataforma.
+No caso concreto do nosso projeto, a aplicação em questão chama-se International Corporate Management (referida doravante como plataforma de simulação) \cite{MarketplaceSim_2025}, e é utilizado tipicamente no último semestre, na cadeira Projeto de Simulação em Negócios Internacionais da Licenciatura de Comércio e Negócios Internacionais. 
 
-Em termos de estrutura temporal, a simulação decorre ao longo de vários períodos, normalmente designados por quarters. Cada um destes quarters representa uma fase do ciclo de vida da empresa simulada — incluindo decisões estratégicas, execução e análise de resultados. Ou seja, no final de cada quarter, os alunos recebem os dados com os resultados das decisões anteriores, o que obriga a uma análise comparativa constante entre períodos. É precisamente esta lógica iterativa — decidir, analisar, ajustar, repetir — que dá ritmo à simulação e aproxima o exercício de uma situação real de gestão empresarial.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{./img/marketplace1}
+ \caption{Captura de ecrã da aplicação International Corporate Management}
+ \end{figure}
 
+Aqui, cada grupo de alunos representa uma empresa que tem de atuar num mercado internacional, tomando decisões sobre o posicionamento de produto, investimento, preços, distribuição, entre outras opções. Essas decisões são processadas pela plataforma, que simula o comportamento do mercado com base num algoritmo interno. 
+
+A cadência da simulação é dada por quarters, que representam uma semana simulada. No final de cada quarter, os alunos recebem os dados com os resultados das decisões anteriores, o que obriga a uma análise comparativa constante entre períodos. É precisamente esta ciclo, decidir, analisar, ajustar, repetir, que dá ritmo à simulação e aproxima o exercício de uma situação real.
+
+Para a análise, os alunos têm à disposição os dados, na plataforma,  nas várias secções disponiveis que na sua maioria são apresentados em tabelas, o que faz com que os alunos saltem entre secções, ou tenham de fazer gráficos à mão ou em ultimo caso, extrair a informação da plataforma. 
+
+\subsection{Sistemas de apoio à decisão}
+\label{sec:sad}
+Um \gls{sad} é uma aplicação ou conjunto de ferramentas desenhadas para ajudar os utilizadores a tomar decisões mais informadas e fundamentadas, geralmente com base na análise de dados. Na prática, um \gls{sad} recolhe, organiza e processa dados, muitas vezes em tempo real ou a partir de ficheiros carregados pelo utilizador, e apresenta esses dados de forma visual (como gráficos ou dashboards), permitindo aplicar filtros e explorar cenários. Ou seja, não toma decisões por si só, mas fornece os elementos certos para que o utilizador possa decidir melhor, especialmente em contextos complexos ou com grande volume de informação.
+
+
+\subsection{Backend e Frontend}
+
+A aplicação desenvolvida neste projeto segue uma arquitetura típica de aplicações web, dividida em duas grandes camadas: \textbf{backend} e \textbf{frontend}.
+
+O \textbf{backend} corresponde à "parte invisível" da aplicação,  é o lado do servidor, responsável por tratar os dados, executar a lógica da aplicação e responder aos pedidos feitos pelos utilizadores. No contexto deste projeto, o backend é responsável por funcionalidades como o carregamento de ficheiros Excel, processamento e normalização dos dados, gestão de utilizadores e autenticação, bem como a disponibilização desses dados através de uma API. Esta camada foi implementada usando o framework \textit{Django}, que oferece uma estrutura robusta para gerir modelos de dados, segurança e acesso à base de dados.
+
+O \textbf{frontend}, por outro lado, é a "parte visível" da aplicação, é o que o utilizador vê e com o que interage diretamente no browser. Inclui os formulários de upload, menus, filtros e gráficos criados com os dados processados. No projeto, o frontend foi desenvolvido usando HTML e Javascript, permitindo criar uma interface moderna, interativa e fácil de usar.
+
+Esta separação entre backend e frontend facilita a manutenção do sistema e permite que ambas as partes evoluam de forma independente, podendo até ser substituídas ou melhoradas sem necessidade de reescrever o sistema completo.
 
 %%________________________________________________________________________
 \section{Abordagem}
@@ -165,7 +189,7 @@ Por todos estes motivos, optámos por não seguir esta via. Em vez disso, defini
 
 \subsection{Exportação e carregamento manual de ficheiros}
 
-A abordagem que acabamos por usar foi os alunos exportam manualmente os dados diretamente da plataforma de simulação e carregarem esses ficheiros na nossa plataforma. A partir daí, o sistema processa automaticamente os dados, normaliza os conteúdos e cria visualizações interativas. Esta abordagem, apesar de requerer uma ação manual inicial por parte do utilizador, é mais segura e prática quando comparada com a alternativa de web scraping, que, como vimos acima, apresentava vários desafios que poderiam ir contra os termos do serviço. Deste modo, garantimos um equilíbrio entre usabilidade, segurança e fiabilidade do sistema. Acabamos então por criar um \gla{sad} (\cf, capítulo \ref{ch:sad}) que permita os estudantes tomarem melhores decisões.
+A abordagem que acabamos por usar foi os alunos exportam manualmente os dados diretamente da plataforma de simulação e carregarem esses ficheiros na nossa plataforma. A partir daí, o sistema processa automaticamente os dados, normaliza os conteúdos e cria visualizações interativas. Esta abordagem, apesar de requerer uma ação manual inicial por parte do utilizador, é mais segura e prática quando comparada com a alternativa de web scraping, que, como vimos acima, apresentava vários desafios que poderiam ir contra os termos do serviço. Deste modo, garantimos um equilíbrio entre usabilidade, segurança e fiabilidade do sistema. Acabamos então por criar um \gla{sad} (\cf, capítulo \ref{sec:sad}) que permita os estudantes tomarem melhores decisões.
 
 
 Para isso, procurámos que a nossa aplicação refletisse a estrutura da própria simulação. Como tal, os dados são organizados por quarters, como acontece na plataforma de simulação e permitir o carregamento dos dados exportados. Estes ficheiros são depois processados o que nos permite trabalhar com dados mais consistentes. 
@@ -206,5 +230,5 @@ Cada utilizador tem acesso apenas aos seus próprios dados, garantindo o isolame
 
 No futuro, pode ser considerada a funcionalidade de desativação automática de contas (por exemplo, após o final do semestre), mas para já o modelo é simples e robusto: conta individual, dados isolados, e controlo completo sobre os próprios uploads.
 
-
+No próximo capitulo iremos então descrever as escolhas tecnicas tomadas de forma a concretizar este modelo.
 
