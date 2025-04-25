@@ -36,7 +36,6 @@ Escolher Django em vez de alternativas como \textit{Flask} ou \textit{FastAPI} p
 
 Relativamente a outras opções como WordPress (que alguns poderiam sugerir para aplicações web), descartámos logo essa hipótese. O WordPress, ainda que muito eficaz para sites de conteúdo, não é adequado para projetos que exigem controlo total sobre a estrutura dos dados, processamento pesado no backend e integração com pipelines de ciência de dados.
 
-Resumidamente, Django proporcionou o equilíbrio certo entre robustez, produtividade e integração tecnológica, alinhando-se com os requisitos de um projeto académico e experimental, mas pensado para poder evoluir com facilidade.
 
 \subsection{Pandas}
 
@@ -46,19 +45,19 @@ O Pandas permite ler, transformar e filtrar dados em ficheiros Excel com grande 
 
 Uma das vantagens mais importantes foi a capacidade de converter os dados diretamente para formatos como JSON, o que facilitou a sua integração com o frontend através da API.
 
-Apesar destas vantagens, o Pandas não é a melhor opção quando falamos de datasets muito grandes em produção, uma vez que funciona inteiramente em memória. Em contextos empresariais com maiores volumes de dados, poderiam ser consideradas bibliotecas como \textit{Dask} ou \textit{Polars}.
+Apesar destas vantagens, o Pandas não é a melhor opção quando falamos de datasets muito grandes, uma vez que funciona inteiramente em memória. Em contextos com maiores volumes de dados, poderiam ser consideradas bibliotecas como \textit{Dask} ou \textit{Polars} por terem capacidades de lidar com um maior fluxo de informação, como paralelismo.
 
 No entanto, para os objetivos e escala deste projeto, o Pandas ofereceu um equilíbrio excelente entre funcionalidade, simplicidade e tempo de desenvolvimento.
 
 \subsection{Plotly}
 
-Para gerar os gráficos da aplicação, optámos por utilizar o \textit{Plotly}, uma biblioteca  que permite criar visualizações interativas. Esta escolha foi motivada pelo facto de o Plotly suportar suportar uma API declarativa, o que facilitou muito a integração com o frontend e backend, porque assim a configuração dos gráficos pode ser retornada do servidor, permitindo uma configuração dinâmica e garantindo que todos os utilizadores vêm o mesmo tipo de gráfico. Internamente, o Ploty utiliza uma outra biblioteca, D3.js, que é uma biblioteca com capacidade de criar gráficos personalizados.
+Para gerar os gráficos da aplicação, optámos por utilizar o \textit{Plotly}, uma biblioteca  que permite criar visualizações interativas, que está disponivel em várias linguagens como Python e Javascript. Esta escolha foi motivada pelo facto de o Plotly suportar suportar uma API declarativa, o que facilitou muito a integração com o frontend e backend, porque assim a configuração dos gráficos pode ser retornada do servidor, permitindo uma configuração dinâmica e garantindo que todos os utilizadores vêm o mesmo tipo de gráfico. Internamente, o Ploty utiliza uma outra biblioteca, D3.js, que é uma biblioteca com capacidade de criar gráficos personalizados.
 
-Além disso, a biblioteca oferece suporte a uma grande variedade de gráficos, desde os mais comuns (barras, linhas, circulares) até formatos mais especializados (como gráficos de cascata ou mapas de calor), o que foi importante para cobrir os vários tipos de visualização pretendidos.
+Além disso, a biblioteca oferece suporte a uma grande variedade de gráficos, desde os mais comuns (barras, linhas, circulares) até formatos mais especializados (como gráficos de cascata ou mapas de calor), o que foi importante para cobrir os vários tipos de visualização pretendidos. Em comparação, bibliotecas como Chart.js, embora sejam mais leves, limitam-se a um conjunto reduzido de gráficos e oferecem menos controlo sobre detalhes avançados de visualização. Por este motivo, Plotly revelou-se uma solução mais adequada para a flexibilidade e diversidade de visualizações pretendida neste projeto. Uma lista completa das diferencas pode ser consultada no (\cf, capítulo \ref{ch:charts}).
 
-Em comparação, bibliotecas como Chart.js, embora sejam mais leves, limitam-se a um conjunto reduzido de gráficos e oferecem menos controlo sobre detalhes avançados de visualização. Por este motivo, Plotly.js revelou-se uma solução mais adequada para a flexibilidade e diversidade de visualizações pretendida neste projeto. Uma lista completa das diferencas pode ser consultada no (\cf, capítulo \ref{ch:charts}).
+A versão Python desta biblioteca foi também instrumental no desenvolvimento dos gráficos, uma vez que nos permitiu explorar os dados de forma independente do sistema (fora da aplicação) de modo escolher que tipo de gráfico seria o mais adequado aos dados que estavamos a analisar e que transformações eram necessárias para obter os gráficos escolhidos. 
 
-Naturalmente, é importante ter em consideração que o tamanho dos ficheiros JavaScript do Plotly.js é maior do que outras bibliotecas mais minimalistas, mas, no contexto deste projeto, a qualidade e a flexibilidade gráfica foram consideradas prioritárias.
+É importante ter em consideração que o tamanho dos ficheiros JavaScript do Plotly é maior do que outras bibliotecas mais minimalistas, mas, no contexto deste projeto, a qualidade e a flexibilidade gráfica foram consideradas prioritárias.
 
 \subsection{WebComponents}
 
