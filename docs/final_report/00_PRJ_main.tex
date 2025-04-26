@@ -38,6 +38,11 @@
 \usepackage[acronym, nomain]{glossaries}
 \makeglossaries
 
+\usepackage{etoolbox}
+
+\newcommand{\acfoot}[1]{%
+  \acrshort{#1}\footnote{\acrlong{#1}}%
+}
 
 %% para usar caracteres acentuados
 \usepackage[utf8]{inputenc} % no Unix (com codificaÃ§Ã£o UTF-8)
@@ -122,7 +127,7 @@
     \cleardoublepage
     \phantomsection
     \addcontentsline{toc}{chapter}{Lista de Acrónimos}
-    \printglossary[type=\acronymtype, title=Lista de Acrónimos]
+    \printacronyms[type=\acronymtype, title=Lista de Acrónimos]
 }
 %%________________________________________________________________________
 
@@ -169,7 +174,6 @@
 \mainmatter
 \myPageStyle
 
-No sistema, o \gls{csv} pe
 %% cada um dos CapÃ­tulos
 %% (aqui separados em dois ficheiros)
 %%________________________________________________________________________
