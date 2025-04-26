@@ -44,7 +44,7 @@ Esta análise inicial permitiu-nos delinear as fase seguintes em relação ao tr
 
 \subsection{Classificação da informação}
 
-A análise inicial dos ficheiros fornecidos permitiu-nos perceber que, apesar da diversidade do dados existiam padrões consistentes na estrutura dos mesmos. Com base nisso, tomámos a decisão de agrupar os ficheiros em "buckets" ou categorias lógicas. Cada um desses grupos ficou associado a um \textit{template} gráfico específico, o que nos permite não só uniformizar a apresentação dos dados, como também automatizar o processo de transformação e visualização a partir dos ficheiros processados.
+A análise inicial dos ficheiros fornecidos permitiu-nos perceber que, apesar da diversidade dos mesmos,  existiam padrões consistentes na estrutura. Com base nisso, tomámos a decisão de agrupar os ficheiros em "buckets" ou categorias lógicas. Cada um desses grupos ficou associado a um \textit{template} gráfico específico, o que nos permite não só uniformizar a apresentação dos dados, como também automatizar o processo de transformação e visualização a partir dos ficheiros.
 
 Os grupos definidos foram os seguintes: \textbf{simples}, \textbf{agrupado}, \textbf{balanços}, \textbf{quartis}, \textbf{setores} e \textbf{análise específica}. Vamos então descrever o significado de cada grupo e identificar o que é comum entre os gráficos pertencentes a cada um deles.
 
@@ -59,12 +59,6 @@ No grupo \textbf{quartis}, classificámos ficheiros onde os dados contem minimos
 O grupo \textbf{setores} inclui ficheiros onde a segmentação do mercado ou da performance está organizada por setores económicos ou geográficos. Nestes casos, faz sentido usar gráficos de setores ou gráficos de barras empilhadas, dependendo da necessidade de comparar proporções entre segmentos.
 
 Finalmente, o grupo de \textbf{análise específica} engloba casos que não se encaixam diretamente nos formatos anteriores, como análises mais detalhadas por cidade, por segmento ou quando temos várias unidades na mesma folha (percentagens com euros). Para estes casos, o processo passou por simplificar a informação de modo a encaixar num dos grupos acima ou excecionalmente aplicar um novo tipo de gráfico, e a análise foi feita manualmente para cada caso.
-
-Apesar das diferenças entre grupos, é importante referir que todos os gráficos partilham em comum algumas propriedades fundamentais: o eixo X é sempre baseado na primeira coluna dos dados (sendo o eixo categórico principal), e todos os datasets foram normalizados para garantir nomes de colunas consistentes e ausência de dados inválidos ou duplicados. Além disso, todos os \textit{templates} aplicam uma palete de cores consistente e labels automáticos para manter a coerência visual e facilitar a interpretação dos resultados.
-
-
-\subsection{Visualização escolhidas para os vários grupos}
-- Falar sobre os vários
 
 \section{Processamento dos dados}
 - Iniciar o tema de processamento de informação, converter informação desconhecida para um formato normalizado.
