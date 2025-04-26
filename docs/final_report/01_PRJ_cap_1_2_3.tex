@@ -171,6 +171,89 @@ O \textbf{frontend}, por outro lado, é a "parte visível" da aplicação, é o 
 
 Esta separação entre backend e frontend facilita a manutenção do sistema e permite que ambas as partes evoluam de forma independente, podendo até ser substituídas ou melhoradas sem necessidade de reescrever o sistema completo.
 
+
+\subsection{Tipos de gráficos}
+
+Durante a análise que fizemos foram selecionados diferentes tipos de gráficos, de acordo com o tipo de análise que cada conjunto de dados pretendia suportar. Cada tipo de gráfico foi escolhido com base na sua capacidade de representar visualmente os dados e a sua facilidade de interpretação.
+
+\textbf{Gráfico de Barras (Bar Chart):}
+Este tipo de gráfico foi utilizado para comparar valores entre diferentes categorias, como marcas, cidades ou segmentos de mercado. A disposição visual das barras permite uma leitura rápida das diferenças de desempenho entre categorias, sendo util para dados que não são temporais. Foram usadas variantes como barras empilhadas e barras agrupadas, dependendo da granularidade pretendida.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=12cm, keepaspectratio]{./img/barras1}
+\caption{Exemplo de gráfico de barras}
+\end{figure}
+\noindent
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=12cm, keepaspectratio]{./img/agrupada}
+\caption{Exemplo de gráfico de barras agrupadas}
+\end{figure}
+\noindent
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=12cm, keepaspectratio]{./img/empilhada}
+\caption{Exemplo de gráfico de barras empilhadas}
+\end{figure}
+\noindent
+
+\textbf{Gráfico de Sectores (Pie Chart):}  
+Utilizado para representar distribuições percentuais, como a repartição de dados por segmento. Este tipo é  intuitivo para visualizar como uma totalidade se divide entre diferentes partes, sendo adequado para dados onde se pretendia enfatizar proporções relativas (como por exemplo dados categorizados por segmentos)
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[max width=12cm, keepaspectratio]{./img/pie}
+    \caption{Exemplo de gráfico de sectores}
+\end{figure}
+\noindent
+
+\textbf{Gráfico Financeiro (Waterfall Chart):}  
+Empregado especificamente para representar balanços financeiros, como resultados acumulados de receitas e despesas. O gráfico cascata” (waterfall) permite visualizar como diferentes contribuições individuais afetam um valor final, facilitando a análise de ganhos e perdas ao longo do tempo ou de processos financeiros.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[max width=12cm, keepaspectratio]{./img/waterfall}
+    \caption{Exemplo de gráfico financeiro}
+\end{figure}
+\noindent
+
+\textbf{Diagrama de Quartis (Box Plot):}
+Os diagramas de quartis, foram utilizados para representar dados que eram distribuições, permitindo visualizar de forma rápida a mediana, os quartis e possíveis valores extremos. Este tipo de diagrama é util para comparar a diferença entre diferentes categorias, como por exemplo comparar a dispersão de vendas entre várias marcas ou cidades. A interpretação deste tipo de visualização exige um conhecimento prévio de conceitos estatísticos como mediana e quartis, o que pde dificultar a leitura para o público-alvo, mas que simplifica a representação dos dados.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[max width=12cm, keepaspectratio]{./img/box}
+    \caption{Exemplo de Diagramas de Quartis}
+\end{figure}
+\noindent
+
+\textbf{Diagrama de Sankey (Sankey Diagram):}
+Os diagramas de Sankey são utilizados para representar fluxos entre diferentes categorias, destacando a quantidade transferida de uma categoria para outra. Estes diagramas são particularmente úteis para ilustrar a passagem de clientes entre necessidades ou segmentos. Cada fluxo é representado por uma linha cuja largura é proporcional à quantidade movida, permitindo uma visualização intuitiva da importancia dos fluxos. Para evitar representações complexas, decidimos apenas recorrer a este tipo apenas quando os dados não poderiam ser representados de outra forma, ou tratados de forma a simplificar a representação.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[max width=12cm, keepaspectratio]{./img/skankey}
+    \caption{Exemplo de gráfico de Sankey}
+\end{figure}
+\noindent
+
+Outros tipos de gráficos relevantes para o projeto, mas que não foram utilizados foram:
+
+\textbf{Gráfico de Linhas (Line Chart):}  
+Escolhido para representar séries temporais, como a evolução de vendas ou de quotas ao longo de vários trimestres. As linhas permitem identificar tendências e variações. No nosso projeto, não tivemos necessidade de usar este tipo uma vez que nenhum dos dados recebidos era relativos a séries temporais, pelo que a sua utilização não era intuitiva para os utilizadores.
+
+\textbf{Gráfico de Radar (Radar Chart):}  
+Utilizado para comparar múltiplas variáveis em relação a um centro comum, como no caso da avaliação de diferentes necessidades dos clientes em simultâneo. Este tipo de gráfico permite identificar rapidamente pontos fortes e fracos em várias dimensões de análise. Apesar destas vantagens, nos dados que recebemos não conseguimos identificar utilizações onde este tipo de gráfico beneficiasse os utilizadores finais.
+
+\textbf{Gráfico de Dispersão (Scatter Plot):}
+Os gráficos de dispersão foram considerados para representar relações entre duas variáveis quantitativas, como por exemplo entre o preço e a procura de determinados produtos. Cada ponto no gráfico representa uma observação individual, permitindo identificar padrões de correlação (positiva, negativa ou inexistente) entre variáveis. No nosso caso, consideramos utilizar um tipo especifico de gráfico de dispersão (gráfico de dispersão num mapa) mas a leitura tornou-se confusa, uma vez que era pouco legivel para alunos, e não considerava localizações ficticias.
+\end{itemize}
+
+A seleção dos tipos de gráficos teve como objetivo maximizar a clareza e facilidade da informação e permitir diferentes análises sobre os dados extraídos. Cada gráfico foi pensado para às características das categorias disponíveis, considerando tanto a o formato dos dados (quantitativa ou categórica) como o objetivo da análise (comparação, distribuição, evolução ou composição).
+
 %%________________________________________________________________________
 \section{Abordagem}
 \label{sec:abordagem}
