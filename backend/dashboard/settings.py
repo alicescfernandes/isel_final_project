@@ -27,8 +27,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = bool(os.environ.get("DEBUG", default=0))
 
 #ALLOWED_HOSTS = ["localhost", "127.0.0.1", "django", "dashboard-app.local"]
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-
+ALLOWED_HOSTS = [
+    "demo.alicescfernandes.pt",
+    "localhost",  # optional for local dev
+]
 # Application definition
 
 INSTALLED_APPS = [
