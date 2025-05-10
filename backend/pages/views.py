@@ -44,8 +44,6 @@ def home(request):
             "chart_slugs": []
         })
 
-    current_quarter = quarters.first()
-
     latest_csvs = (
         CSVData.objects
         .filter(user=request.user, is_current=True)
@@ -89,10 +87,6 @@ def home(request):
     selected_section_title = section_titles.get(selected_section_slug, "Unknown")
 
     return render(request, 'pages/home.html', {
-        "app_context": {
-            "qn": current_quarter.number,
-            "quuid": current_quarter.uuid,
-        },
         "section_titles": section_titles,                      # slug → title
         "selected_section_slug": selected_section_slug,        # slug
         "selected_section_title": selected_section_title,      # readable title
