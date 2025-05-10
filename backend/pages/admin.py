@@ -1,6 +1,12 @@
 from django.contrib import admin
 
 from .models import Quarter, ExcelFile, CSVData
+#from unfold.admin import ModelAdmin
+
+
+#@admin.register(MyModel)
+#class CustomAdminClass(ModelAdmin):
+#    pass
 
 @admin.register(Quarter)
 class QuarterAdmin(admin.ModelAdmin):
