@@ -22,6 +22,45 @@
     margin: 0 2px !important;
 }
 
+.container_home {
+    @apply flex gap-10;
+
+    h2{
+        @apply font-semibold text-gray-800 mb-3 text-2xl
+    }
+
+
+    .sections_column{
+        @apply shrink-0 hidden lg:block text-sm;
+        width: 250px;
+
+
+        .section-item{
+            @apply flex justify-between items-center
+        }
+
+        .sub-sections {
+            @apply ml-2 text-sm text-gray-400;
+            border-left: 3px solid #e8e8e8;
+            margin: 0px;
+            padding-left: 0.5rem;
+
+            li{
+                @apply my-2
+            }
+        }
+
+        button{
+            @apply text-lg text-gray-500 hover:text-gray-800;
+        }
+    }
+
+    .section_charts{
+        @apply flex-1 mb-12
+    }
+
+}
+
 /* Web Components */
 plotly-chart {
     @apply col-span-8 p-4 bg-white border border-gray-200 rounded-lg shadow-sm;
@@ -162,3 +201,6 @@ h2 {
         @apply flex flex-col font-medium rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:border-0 md:bg-white lg:hidden;
     }
 }
+
+
+

@@ -1,2 +1,2 @@
-(()=>{document.addEventListener("DOMContentLoaded",()=>{let e=document.getElementById("scrollToTopBtn");window.addEventListener("scroll",()=>{window.scrollY>500?e.classList.remove("hidden"):e.classList.add("hidden")})});})();
+(()=>{document.addEventListener("DOMContentLoaded",()=>{let t=document.getElementById("scrollToTopBtn");window.addEventListener("scroll",()=>{window.scrollY>500?t.classList.remove("hidden"):t.classList.add("hidden")}),document.querySelectorAll("[data-toggle]").forEach(e=>{let d=e.getAttribute("data-toggle"),n=document.querySelector(`[data-section-id="${d}"]`);e.addEventListener("click",()=>{let o=n.classList.toggle("hidden");e.textContent=o?"+":"-"})})});})();
 //# sourceMappingURL=page_home.js.map

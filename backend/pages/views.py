@@ -38,7 +38,7 @@ def home(request):
         return render(request, 'pages/home.html', {
             "app_context": {
                 "qn": None,
-                "quuid": None,            
+                "quuid": None,
             },
             "empty": True,
             "chart_slugs": []
@@ -53,9 +53,7 @@ def home(request):
 
     seen_chart_slugs = set()
     all_charts = []
-
-    charts_by_section = {}  # section_slug → list of chart dicts
-    section_titles = {}     # section_slug → readable section name
+    charts_by_section = {}
 
     for csv in latest_csvs:
         chart_slug = csv.sheet_name_slug
@@ -69,28 +67,42 @@ def home(request):
 
         chart_info = {
             "slug": chart_slug,
+            "title": csv.sheet_name_pretty,
             "quarter_number": csv.quarter_file.quarter.number,
         }
 
         if section_slug not in charts_by_section:
-            charts_by_section[section_slug] = []
-            section_titles[section_slug] = section_title
+            charts_by_section[section_slug] = {
+                "slug": section_slug,
+                "title": section_title,
+                "charts": []
+            }
 
-        charts_by_section[section_slug].append(chart_info)
+        charts_by_section[section_slug]["charts"].append(chart_info)
         all_charts.append(chart_info)
 
-    # Determine selected section
-    default_section_slug = next(iter(charts_by_section), None)
+    toc_data = list(charts_by_section.values())
+
+    if toc_data and isinstance(toc_data[0], dict):
+        default_section_slug = toc_data[0].get("slug")
+    else:
+        default_section_slug = None
+
     selected_section_slug = request.GET.get("section", default_section_slug)
 
-    selected_charts = charts_by_section.get(selected_section_slug, [])
-    selected_section_title = section_titles.get(selected_section_slug, "Unknown")
+    selected_section = next(
+        (section for section in toc_data if section["slug"] == selected_section_slug),
+        None
+    )
+
+    selected_charts = selected_section["charts"] if selected_section else []
+    selected_section_title = selected_section["title"] if selected_section else "Unknown"
 
     return render(request, 'pages/home.html', {
-        "section_titles": section_titles,                      # slug → title
-        "selected_section_slug": selected_section_slug,        # slug
-        "selected_section_title": selected_section_title,      # readable title
-        "selected_charts": selected_charts,                    # list of chart dicts
+        "toc_data": toc_data,
+        "selected_section_slug": selected_section_slug,
+        "selected_section_title": selected_section_title,
+        "selected_charts": selected_charts,
         "empty": len(all_charts) == 0,
     })
 
