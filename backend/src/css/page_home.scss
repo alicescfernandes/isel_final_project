@@ -22,10 +22,9 @@
     margin: 0 2px !important;
 }
 
-
 /* Web Components */
 plotly-chart {
-    @apply col-span-8 lg:col-span-4 p-6 bg-white border border-gray-200 rounded-lg shadow-sm;
+    @apply col-span-8 p-4 bg-white border border-gray-200 rounded-lg shadow-sm;
     min-height: 350px;
     
     .spinner{
@@ -55,7 +54,7 @@ plotly-chart {
             @apply flex justify-between mb-2;
         }
         &-title{
-            @apply text-2xl font-semibold tracking-tight flex-1;
+            @apply text-xl font-semibold tracking-tight flex-1;
         }
 
         &-filter{
@@ -72,7 +71,7 @@ plotly-chart {
         }
         
         &-zoom-content {
-            @apply bg-white p-4 rounded-lg w-[80vw] h-[80vh] overflow-auto relative;
+            @apply bg-white p-4 rounded-lg w-[90vw] h-[90vh] overflow-auto relative;
         }
         
         &-zoom-close {
@@ -147,6 +146,8 @@ h2 {
 .dropdown {
     &-items-list {
         @apply z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-xl border border-gray-200;
+        max-height: 300px;
+        overflow: scroll;
 
         a{
             @apply block px-4;
@@ -158,6 +159,6 @@ h2 {
     }
     
     &-container {
-        @apply flex flex-col font-medium rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:border-0 md:bg-white;
+        @apply flex flex-col font-medium rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:border-0 md:bg-white lg:hidden;
     }
 }

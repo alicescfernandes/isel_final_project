@@ -1,7 +1,7 @@
 {% load custom_tags %}
 
 {% if request.path == '/' %}
-  {% if sections %}
+  {% if section_titles %}
     <ul class="dropdown-container">
       <li>
         <button id="dropdownNavbarLink" data-dropdown-toggle="floating-toc" class="navbar-link-section">
@@ -11,10 +11,10 @@
         </button>
         <!-- Dropdown menu -->
         <div id="floating-toc" class="hidden dropdown-items-list">
-          <ul class="dropdown-list-item" aria-labelledby="dropdownLargeButton">
-            {% for section_name, charts in sections.items %}
+          <ul class="dropdown-list-item" aria-labelledby="dropdownNavbarLink">
+            {% for section_slug, section_title in section_titles.items %}
               <li>
-                <a href="#section-{{ section_name|slug }}" class="dropdown-list-item">{{ section_name }}</a>
+                <a href="?section={{ section_slug }}" class="dropdown-list-item">{{ section_title }}</a>
               </li>
             {% endfor %}
           </ul>
