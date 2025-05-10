@@ -98,6 +98,10 @@ def home(request):
     selected_charts = selected_section["charts"] if selected_section else []
     selected_section_title = selected_section["title"] if selected_section else "Unknown"
 
+
+    toc_data = list(charts_by_section.values())
+    toc_data.sort(key=lambda section: section["title"].lower())
+
     return render(request, 'pages/home.html', {
         "toc_data": toc_data,
         "selected_section_slug": selected_section_slug,
