@@ -19,6 +19,10 @@ _Stuff that is not important and just nice haves_
 
 ## TODO
 
+## 05/11/2025
+
+- [x] Adds more VPS configs for deploy
+
 ## 05/10/2025
 
 - [x] Fixes user on the quarter selection causing errors for multiple users
