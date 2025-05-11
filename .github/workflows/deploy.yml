@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - master
-      - add-vps-deploy
-
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest
