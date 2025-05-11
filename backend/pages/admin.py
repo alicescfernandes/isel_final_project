@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Quarter, ExcelFile, CSVData
-#from unfold.admin import ModelAdmin
+from unfold.admin import ModelAdmin
 
 
 #@admin.register(MyModel)
@@ -9,7 +9,7 @@ from .models import Quarter, ExcelFile, CSVData
 #    pass
 
 @admin.register(Quarter)
-class QuarterAdmin(admin.ModelAdmin):
+class QuarterAdmin(ModelAdmin):
     list_display = ('id', 'user', 'number', 'uuid', 'created_at')
     search_fields = ('number', 'uuid')
     ordering = ('-created_at',)
@@ -26,7 +26,7 @@ class QuarterAdmin(admin.ModelAdmin):
             return qs
         return qs.filter(user=request.user)
 @admin.register(CSVData)
-class CSVDataAdmin(admin.ModelAdmin):
+class CSVDataAdmin(ModelAdmin):
     list_display = ('sheet_name_slug','user','sheet_name_pretty','is_current','data','quarter_file', 'quarter_uuid','column_order')
     exclude = ('user',)
 
@@ -41,7 +41,7 @@ class CSVDataAdmin(admin.ModelAdmin):
             return qs
         return qs.filter(user=request.user)
 @admin.register(ExcelFile)
-class ExcelFileAdmin(admin.ModelAdmin):
+class ExcelFileAdmin(ModelAdmin):
     list_display = ('quarter', 'user', 'is_processed', 'section_name', 'uploaded_at')
     exclude = ('user',)
 
