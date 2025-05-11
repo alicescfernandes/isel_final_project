@@ -17,6 +17,10 @@ _Stuff that is not important and just nice haves_
 
 ## TODO
 
+- [ ] Add annotation for quarter diagrams about the company
+- [ ] Finish the remaining graphs
+- [ ] Add DataTable charts
+
 ## 05/11/2025
 
 - [x] Adds more VPS configs for deploy
