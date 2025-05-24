@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         sectionContainers.forEach(container => {
             const sectionLink = container.querySelector('.section-item a');
-            const chartItems = container.querySelectorAll('.chart-item');
+            const chartItems = container.querySelectorAll('.sub-section-item');
             let hasMatch = false;
 
             // Store original text if not already stored
