@@ -21,6 +21,10 @@ _Stuff that is not important and just nice haves_
 - [ ] Finish the remaining graphs
 - [ ] Add DataTable charts
 
+## 05/24/2025
+- [x] Add search functionality with text hightligthing
+
+
 ## 05/11/2025
 
 - [x] Adds more VPS configs for deploy
