@@ -48,7 +48,9 @@
 
             <ul data-section-id="section-{{ section.slug }}" class="sub-sections hidden">
               {% for chart in section.charts %}
-                <li class="chart-item">{{ chart.title }}</li>
+              <li class="chart-item">
+                <a href="?section={{ section.slug }}#chart_{{ chart.slug }}" class="hover:text-blue-700">{{ chart.title }}</a>
+              </li>
               {% endfor %}
             </ul>
           </div>
